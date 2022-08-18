@@ -1,7 +1,15 @@
-import './App.css';
+import { Link, Routes, Route } from 'react-router-dom';
+import AboutUs from './AboutUs';
 
 function App() {
-    return <h1 className='font-bold text-4xl'>Hello World!</h1>;
+    return (
+        <>
+            <Routes>
+                <Route path='/' element={<AboutUs />} />
+            </Routes>
+        </>
+    )
+
 }
 
 export default App;
