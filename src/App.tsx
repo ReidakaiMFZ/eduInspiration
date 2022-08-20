@@ -6,14 +6,14 @@ import Register from './Register';
 
 function App() {
     return (
-        <>
+        <main className='bg-gblack w-full h-full'>
             <Header />
             <Routes>
                 <Route path='/' element={<FrontPage />} />
                 <Route path='/about' element={<AboutUs />} />
                 <Route path='/register' element={<Register />} />
             </Routes>
-        </>
+        </main>
     );
 }
 
