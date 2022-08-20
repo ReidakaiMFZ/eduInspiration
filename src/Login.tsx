@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import home from './assets/home.svg';
 export default function Login() {
@@ -43,7 +43,9 @@ export default function Login() {
                 <form
                     action=''
                     method='post'
-                    onSubmit={(_) => _.preventDefault()}
+                    onSubmit={(_) => {
+                        _.preventDefault();
+                    }}
                     className={'flex flex-col gap-4'}>
                     <div className='text-left mt-8 text-2xl'>
                         <label htmlFor='login'>Login:</label>
