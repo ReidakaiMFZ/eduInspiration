@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function FrontPage() {
     return (
-        <div className='mt-20 min-h-max min-w-max flex flex-row'>
+        <div className='mt-20 min-h-max min-w-max flex flex-row animate-fade-in'>
             <div className='w-1/2 flex flex-col align-middle text-center'>
                 <span className='font-bold inline-block text-gpink text-4xl'>
                     Prazer somos a
