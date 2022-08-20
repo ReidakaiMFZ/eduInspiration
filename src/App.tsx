@@ -3,6 +3,7 @@ import FrontPage from './FrontPage';
 import { Link, Routes, Route } from 'react-router-dom';
 import AboutUs from './AboutUs';
 import Register from './Register';
+import Login from './Login';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path='/' element={<FrontPage />} />
                 <Route path='/about' element={<AboutUs />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </main>
     );

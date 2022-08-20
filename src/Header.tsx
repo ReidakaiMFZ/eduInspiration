@@ -30,9 +30,11 @@ function UnLoggedHeader() {
                 </Link>
             </section>
             <section className='w-1/3 items-end text-lg flex gap-4 flex-row-reverse '>
-                <button className='h-8 w-1/12 rounded underline hover:text-xl transition-all duration-500'>
+                <Link
+                    to={'/login'}
+                    className='h-8 w-1/12 rounded underline hover:text-xl transition-all duration-500'>
                     Login
-                </button>
+                </Link>
             </section>
         </header>
     );
