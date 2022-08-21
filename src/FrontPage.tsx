@@ -9,7 +9,7 @@ export default function FrontPage() {
                     Prazer somos a
                 </span>
                 <span className='font-bold text-4xl inline-block'>
-                    "Nome do grupo"
+                    "Nome do projeto/grupo"
                 </span>
                 <p className='mt-12 text-2xl'>
                     Uma plataforma focada na resolução de problemas reais
