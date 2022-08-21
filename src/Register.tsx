@@ -1,31 +1,61 @@
-export default function Register(){
-    return(
-        <div>
-            <form className="bg-azul">
-                <select>
-                    <option value="">estudante</option>
-                    <option value="">escola</option>
-                    <option value="">empresa</option>
-                    <option value="">professor</option>
-                </select>
-                <h1>Cadastro</h1>
-                <label htmlFor="">
-                    <span>E-mail</span>
-                    <input type="text" />
-                </label>
-                <label htmlFor="">
-                    <span>senha</span>
-                    <input type="password" />
-                </label>
-                <label htmlFor="">
-                    <span>confirmar senha</span>
-                    <input type="password" />
-                </label>
-                <button type="submit">Cadastrar</button>
-                <label htmlFor=""><a href="">esqueceu a senha?</a></label>
-                
-            </form>
-            <button><a href="">login</a></button>
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Student from './components/Student';
+import Teacher from './components/Teacher';
+import School from './components/School';
+import Enterprise from './components/Enterprise';
+
+export default function Login() {
+    const [Escolha, setEscolha] = useState(1);
+    var handlerEscolha = (e:any) => {
+        setEscolha(e.target.value);
+    }
+    return (
+        <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
+            <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center bg-black py-8 px-24 text-xl'>
+                <div className='flex flex-row-reverse gap-4'>
+                    <div>
+                        <label htmlFor='slcTipo'>
+                            Selecione como quer Cadastrar-se:{' '}
+                        </label>
+                        <select
+                            name='slcTipo'
+                            id='slcTipo'
+                            placeholder='Tipo de usuário'
+                            className='bg-gblack w-1/3' onChange={handlerEscolha}>
+                            <option value='0' disabled>Tipo de usuário</option>
+                            <option value='1'>Aluno</option>
+                            <option value='2'>Professor</option>
+                            <option value='3'>Empresa</option>
+                            <option value='4'>Escola</option>
+                        </select>
+                    </div>
+                </div>
+                <p className='text-bold underline text-4xl text-left mt-8'>
+                    Cadastro
+                </p>
+                {
+                    Escolha == 1 ? <Student /> 
+                    : Escolha == 2 ? <Teacher /> 
+                    : Escolha == 3 ? <Enterprise /> 
+                    : Escolha == 4 ? <School /> 
+                    : null
+                }
+                <div className='flex flex-row-reverse mt-8'>
+                    <Link
+                        to={'/login'}
+                        className={
+                            'bg-gpink rounded-full flex items-center justify-center  w-1/3 h-16'
+                        }>
+                        Conectar-se
+                    </Link>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
+
+
+
+
+
