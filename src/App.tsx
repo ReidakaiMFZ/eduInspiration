@@ -5,6 +5,7 @@ import AboutUs from './AboutUs';
 import Register from './Register';
 import Login from './Login';
 import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 const firebaseConfig = {
     // cspell:disable
     apiKey: 'AIzaSyBiyzLGCS-NN_iE0P8GQyvLK-zE6XWHhHc',
@@ -16,6 +17,7 @@ const firebaseConfig = {
     measurementId: 'G-J224GBDNSD',
 }; // cSpell:enable
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 function App() {
     return (
