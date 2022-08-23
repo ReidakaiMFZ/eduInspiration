@@ -1,10 +1,26 @@
+import { Auth, signOut } from 'firebase/auth';
 import { Route, Routes } from 'react-router';
 import { Link } from 'react-router-dom';
+import { User } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, user } from './firebaseObjs';
+
+interface loggedProps {
+    auth: Auth;
+    user: User;
+}
 export default function Header() {
+    const props = { auth, user };
+    return <>{user ? <LoggedHeader /> : <UnLoggedHeader />}</>;
+}
+
+function LoggedHeader() {
     return (
-        <Routes>
-            <Route path='/' element={<UnLoggedHeader />} />
-        </Routes>
+        <header
+            className='w-full p-2 h-18 flex flex-row items-center justify-between'
+            onClick={(e) => signOut(auth as Auth)}>
+            {user?.displayName || 'Anonimo'}
+        </header>
     );
 }
 

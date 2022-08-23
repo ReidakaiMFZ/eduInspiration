@@ -1,8 +1,13 @@
-import { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useContext, useRef } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import home from './assets/home.svg';
+import { Auth, signInAnonymously } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, user } from './firebaseObjs';
+
 export default function Login() {
     let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
+
     useEffect(() => {
         setTimeout(() => {
             setHomeButton(
@@ -43,8 +48,11 @@ export default function Login() {
                 <form
                     action=''
                     method='post'
-                    onSubmit={(_) => {
-                        _.preventDefault();
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        signInAnonymously(auth);
+                        alert('Login efetuado com sucesso!');
+                        console.log(user);
                     }}
                     className={'flex flex-col gap-4'}>
                     <div className='text-left mt-8 text-2xl'>
@@ -86,8 +94,7 @@ export default function Login() {
                     </Link>
                 </div>
             </div>
-
-            {homeButton || ''}
+            {user ? <Navigate to={'/'} /> : homeButton}
         </div>
     );
 }

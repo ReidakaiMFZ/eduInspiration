@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { Auth } from 'firebase/auth';
+import { auth } from './firebaseObjs';
+import * as firebase from 'firebase/app';
 
 export default function FrontPage() {
     return (
