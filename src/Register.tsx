@@ -4,9 +4,22 @@ import Student from './components/Student';
 import Teacher from './components/Teacher';
 import School from './components/School';
 import Enterprise from './components/Enterprise';
+import home from './assets/home.svg';
 
 export default function Login() {
     const [Escolha, setEscolha] = useState(1);
+    let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
+    useEffect(() => {
+        setTimeout(() => {
+            setHomeButton(
+                <Link
+                    to={'/'}
+                    className='fixed bottom-4 right-4 w-24 h-24 animate-fade-in'>
+                    <img src={home} alt='Home' className='w-full h-full' />
+                </Link>
+            );
+        }, 1000);
+    }, []);
     var handlerEscolha = (e: any) => {
         setEscolha(e.target.value);
     };
@@ -60,6 +73,7 @@ export default function Login() {
                     </Link>
                 </div>
             </div>
+            {homeButton || ''}
         </div>
     );
 }
