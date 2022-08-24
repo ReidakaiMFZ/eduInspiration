@@ -4,20 +4,6 @@ import { Link, Routes, Route } from 'react-router-dom';
 import AboutUs from './AboutUs';
 import Register from './Register';
 import Login from './Login';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-const firebaseConfig = {
-    // cspell:disable
-    apiKey: 'AIzaSyBiyzLGCS-NN_iE0P8GQyvLK-zE6XWHhHc',
-    authDomain: 'prjproblematicas.firebaseapp.com',
-    projectId: 'prjproblematicas',
-    storageBucket: 'prjproblematicas.appspot.com',
-    messagingSenderId: '194295484275',
-    appId: '1:194295484275:web:3a67137d7b99ad39743f06',
-    measurementId: 'G-J224GBDNSD',
-}; // cSpell:enable
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 function App() {
     return (
