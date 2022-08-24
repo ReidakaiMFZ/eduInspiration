@@ -1,8 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { Auth } from 'firebase/auth';
-import { auth } from './firebaseObjs';
-import * as firebase from 'firebase/app';
 
 export default function FrontPage() {
     return (
@@ -12,7 +8,7 @@ export default function FrontPage() {
                     Prazer somos a
                 </span>
                 <span className='font-bold text-4xl inline-block'>
-                    "Nome do projeto/grupo"
+                    Edu Inspiration
                 </span>
                 <p className='mt-12 text-2xl'>
                     Uma plataforma focada na resolução de problemas reais
