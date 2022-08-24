@@ -1,7 +1,7 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import home from './assets/home.svg';
-import { Auth, signInAnonymously } from 'firebase/auth';
+import { signInAnonymously } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
 
@@ -43,7 +43,7 @@ export default function Login() {
                         </select>
                     </div>
                 </div>
-                <p className='text-bold underline text-4xl text-left mt-8'>
+                <p className='text-bold underline text-4xl  mt-8 text-center'>
                     Login
                 </p>
                 <form
@@ -53,7 +53,7 @@ export default function Login() {
                         e.preventDefault();
                         signInAnonymously(auth);
                     }}
-                    className={'flex flex-col gap-4'}>
+                    className={'flex flex-col gap-4 items-center'}>
                     <div className='text-left mt-8 text-2xl'>
                         <label htmlFor='login'>Login:</label>
                         <input
@@ -74,7 +74,7 @@ export default function Login() {
                     </div>
                     <button
                         type='submit'
-                        className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+                        className='bg-gpink rounded-full text-4xl w-1/2 mt-24 h-16 underline'>
                         Login
                     </button>
                     <Link
