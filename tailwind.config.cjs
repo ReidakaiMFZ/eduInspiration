@@ -3,6 +3,9 @@ module.exports = {
     content: ['./index.html', './src/**/*.tsx'],
     theme: {
         extend: {
+            height: {
+                '22/100': '22%',
+            },
             colors: {
                 gpink: '#901636',
                 gblack: '#0B0C0F',
