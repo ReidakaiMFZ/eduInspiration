@@ -7,6 +7,7 @@ import { auth } from './firebaseObjs';
 
 export default function Login() {
     let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
+    let [text, setText] = useState('');
     const [user] = useAuthState(auth);
 
     useEffect(() => {
@@ -61,21 +62,23 @@ export default function Login() {
                             name='login'
                             id='login'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                            onChange={(e) => setText(e.target.value)}
                         />
                     </div>
                     <div className='text-left mt-8 text-2xl'>
                         <label htmlFor='senha'>Senha:</label>
                         <input
-                            type='text'
+                            type='password'
                             name='senha'
                             id='senha'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                            onChange={(e) => setText(e.target.value)}
                         />
                     </div>
                     <button
                         type='submit'
-                        className='bg-gpink rounded-full text-4xl w-1/2 mt-24 h-16 underline'>
-                        Login
+                        className='bg-gpink rounded-full text-4xl px-24 mt-24 h-16 underline transition-all duration-300'>
+                        {text ? 'Login' : 'Entrar Anonimamente'}
                     </button>
                     <Link
                         to={'/forgotPassword'}
