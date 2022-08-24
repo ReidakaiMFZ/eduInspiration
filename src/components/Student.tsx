@@ -1,6 +1,10 @@
 export default function Student() {
-    return(
-        <form action='' method='post' onSubmit={(_) => _.preventDefault()} className={'flex flex-col gap-4'}>
+    return (
+        <form
+            action=''
+            method='post'
+            onSubmit={(_) => _.preventDefault()}
+            className={'flex flex-col gap-4'}>
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='studentName'>Nome:</label>
                 <input
@@ -50,7 +54,9 @@ export default function Student() {
             <div className='text-left mt-8 text-2xl'>
                 <div className='flex justify-between pr-8 -mb-8'>
                     <label htmlFor='studentStreet'>Logradouro:</label>
-                    <label htmlFor='studentHouseNumber' className=''>N°:</label>
+                    <label htmlFor='studentHouseNumber' className=''>
+                        N°:
+                    </label>
                 </div>
                 <br />
                 <input
@@ -68,23 +74,33 @@ export default function Student() {
             </div>
             <div className='text-left mt-8 text-2xl flex justify-between'>
                 <label htmlFor='studentEssay'>Disciplina:</label>
-                <select name="essays" id="essays" placeholder='Disciplinas' className='bg-gblack w-2/4'>
-                    <option value="0" disabled>Disciplinas</option>
-                    <option value="1">Programação</option>
+                <select
+                    name='essays'
+                    id='essays'
+                    placeholder='Disciplinas'
+                    className='bg-gblack w-2/4'>
+                    <option value='0' disabled>
+                        Disciplinas
+                    </option>
+                    <option value='1'>Programação</option>
                 </select>
             </div>
             <div className='text-left mt-8 text-2xl flex justify-between'>
                 <label htmlFor='studentSchool'>Escola:</label>
-                <select name="schools" id="schools" placeholder='Escolas' className='bg-gblack w-2/4'>
-                    <option value="0">Nenhuma</option>
+                <select
+                    name='schools'
+                    id='schools'
+                    placeholder='Escolas'
+                    className='bg-gblack w-2/4'>
+                    <option value='0'>Nenhuma</option>
                 </select>
             </div>
-            <div className='text-left mt-8 text-2xl flex justify-between'>
+            {/* <div className='text-left mt-8 text-2xl flex justify-between'>
                 <label htmlFor='studentTeacher'>Professor orientador:</label>
                 <select name="teachers" id="teachers" placeholder='Professores' className='bg-gblack w-2/4'>
                     <option value="0">Nenhum</option>
                 </select>
-            </div>
+            </div> */}
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='studentPassword'>Senha:</label>
                 <input
@@ -100,11 +116,14 @@ export default function Student() {
                     type='password'
                     name='studentConfirmPassword'
                     id='studentConfirmPassword'
-                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'/>
+                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                />
             </div>
-            <button type='submit' className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+            <button
+                type='submit'
+                className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
                 Cadastrar
             </button>
         </form>
-    )
+    );
 }
