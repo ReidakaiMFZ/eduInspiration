@@ -2,8 +2,18 @@ import { collection, serverTimestamp } from 'firebase/firestore';
 import React from 'react';
 import { auth, fireStore } from '../firebaseObjs';
 import { addDoc } from 'firebase/firestore';
+import {
+    createUserWithEmailAndPassword,
+    updateCurrentUser,
+    updateProfile,
+} from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Navigate } from 'react-router';
 
 export default function Student() {
+    const [user] = useAuthState(auth);
+    let tempPassword = '';
+    let password: string = '';
     const student = {
         createdAt: serverTimestamp(),
         name: '',
@@ -17,6 +27,30 @@ export default function Student() {
     };
     const registerStudent = (e: React.FormEvent) => {
         e.preventDefault();
+        if (tempPassword !== password) {
+            alert('As senhas não conferem');
+            return;
+        }
+
+        createUserWithEmailAndPassword(auth, student.email, password)
+            .catch((error) => {
+                alert(
+                    error.code === 'auth/email-already-in-use'
+                        ? 'Email já cadastrado'
+                        : error.code === 'auth/invalid-email'
+                        ? 'Email não é valido'
+                        : error.message
+                );
+            })
+            .then((result) => {
+                if (result) {
+                    addDoc(collection(fireStore, 'students'), student);
+                    updateProfile(result.user, {
+                        displayName: student.name,
+                    }).catch((e) => alert(e));
+                }
+            });
+
         addDoc(collection(fireStore, 'students'), student);
     };
     return (
@@ -35,6 +69,7 @@ export default function Student() {
                     onChange={(e) => (student.name = e.target.value)}
                 />
             </div>
+            {user ? <Navigate to={'/'} /> : ''}
 
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='studentEmail'>Email:</label>
@@ -154,6 +189,10 @@ export default function Student() {
                     name='studentPassword'
                     id='studentPassword'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    required
+                    onChange={(e) => {
+                        password = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -163,6 +202,7 @@ export default function Student() {
                     name='studentConfirmPassword'
                     id='studentConfirmPassword'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => (tempPassword = e.target.value)}
                 />
             </div>
             <button

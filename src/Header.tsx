@@ -1,4 +1,4 @@
-import { Auth, signOut } from 'firebase/auth';
+import { Auth, signOut, updateCurrentUser } from 'firebase/auth';
 import { Route, Routes } from 'react-router';
 import { Link } from 'react-router-dom';
 import { User } from 'firebase/auth';
@@ -40,7 +40,9 @@ function LoggedHeader() {
 
     return (
         <section className='w-1/2 items-end text-lg flex gap-4 flex-row-reverse'>
-            <p className={'h-8 rounded'}>{user?.displayName || 'Anonimo'}</p>
+            <p className={'h-8 rounded'}>
+                {auth.currentUser?.displayName || 'Anonimo'}
+            </p>
             <p
                 onClick={(e) => signOut(auth as Auth)}
                 className={
