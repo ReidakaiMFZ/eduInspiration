@@ -24,6 +24,7 @@ export default function Student() {
         address: '',
         addressNum: '',
         field: '',
+        uid: '',
     };
     const registerStudent = (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,6 +45,7 @@ export default function Student() {
             })
             .then((result) => {
                 if (result) {
+                    student.uid = result.user.uid;
                     addDoc(collection(fireStore, 'students'), student);
                     updateProfile(result.user, {
                         displayName: student.name,

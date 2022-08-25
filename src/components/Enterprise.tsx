@@ -17,6 +17,7 @@ export default function Enterprise() {
         cep: '',
         address: '',
         addressNum: '',
+        uid: '',
     };
     const registerEnterprise = (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,6 +37,7 @@ export default function Enterprise() {
             )
             .then((result) => {
                 if (result) {
+                    enterprise.uid = result.user.uid;
                     addDoc(collection(fireStore, 'enterprises'), enterprise);
                     updateProfile(result.user, {
                         displayName: enterprise.name,

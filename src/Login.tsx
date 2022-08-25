@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import home from './assets/home.svg';
-import { signInAnonymously } from 'firebase/auth';
+import {
+    signInAnonymously,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
 
@@ -9,7 +13,10 @@ export default function Login() {
     let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
-
+    const userInput = {
+        login: '',
+        password: '',
+    };
     useEffect(() => {
         setTimeout(() => {
             setHomeButton(
@@ -52,7 +59,23 @@ export default function Login() {
                     method='post'
                     onSubmit={(e) => {
                         e.preventDefault();
-                        signInAnonymously(auth);
+                        if (userInput.login == '' || userInput.password == '') {
+                            signInAnonymously(auth);
+                        } else {
+                            signInWithEmailAndPassword(
+                                auth,
+                                userInput.login,
+                                userInput.password
+                            )
+                                .then((result) => {
+                                    updateProfile(result.user, {
+                                        displayName: userInput.login,
+                                    });
+                                })
+                                .catch((error) => {
+                                    alert(error.message);
+                                });
+                        }
                     }}
                     className={'flex flex-col gap-4 items-center'}>
                     <div className='text-left mt-8 text-2xl'>
@@ -62,7 +85,10 @@ export default function Login() {
                             name='login'
                             id='login'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={(e) => {
+                                setText(e.target.value);
+                                userInput.login = e.target.value;
+                            }}
                         />
                     </div>
                     <div className='text-left mt-8 text-2xl'>
@@ -72,7 +98,10 @@ export default function Login() {
                             name='senha'
                             id='senha'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={(e) => {
+                                setText(e.target.value);
+                                userInput.password = e.target.value;
+                            }}
                         />
                     </div>
                     <button
