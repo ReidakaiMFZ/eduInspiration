@@ -1,9 +1,29 @@
+import { collection, serverTimestamp } from 'firebase/firestore';
+import React from 'react';
+import { auth, fireStore } from '../firebaseObjs';
+import { addDoc } from 'firebase/firestore';
+
 export default function Student() {
+    const student = {
+        createdAt: serverTimestamp(),
+        name: '',
+        email: '',
+        cpf: '',
+        phone: '',
+        cep: '',
+        address: '',
+        addressNum: '',
+        field: '',
+    };
+    const registerStudent = (e: React.FormEvent) => {
+        e.preventDefault();
+        addDoc(collection(fireStore, 'students'), student);
+    };
     return (
         <form
             action=''
             method='post'
-            onSubmit={(_) => _.preventDefault()}
+            onSubmit={registerStudent}
             className={'flex flex-col gap-4'}>
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='studentName'>Nome:</label>
@@ -12,6 +32,7 @@ export default function Student() {
                     name='studentName'
                     id='studentName'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => (student.name = e.target.value)}
                 />
             </div>
 
@@ -22,6 +43,9 @@ export default function Student() {
                     name='studentEmail'
                     id='studentEmail'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => {
+                        student.email = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -31,6 +55,9 @@ export default function Student() {
                     name='studentCpf'
                     id='studentCpf'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => {
+                        student.cpf = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -40,6 +67,9 @@ export default function Student() {
                     name='studentTelefone'
                     id='studentTelephone'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => {
+                        student.phone = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -49,6 +79,9 @@ export default function Student() {
                     name='studentCep'
                     id='studentCep'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => {
+                        student.cep = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -64,12 +97,18 @@ export default function Student() {
                     name='studentStreet'
                     id='studentStreet'
                     className='inline-block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-96 mr-5'
+                    onChange={(e) => {
+                        student.address = e.target.value;
+                    }}
                 />
                 <input
                     type='text'
                     name='studentHouseNumber'
                     id='studentHouseNumber'
                     className='inline-block bg-transparent border border-white border-x-0 border-t-0 w-16'
+                    onChange={(e) => {
+                        student.addressNum = e.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl flex justify-between'>
@@ -78,11 +117,18 @@ export default function Student() {
                     name='essays'
                     id='essays'
                     placeholder='Disciplinas'
-                    className='bg-gblack w-2/4'>
+                    className='bg-gblack w-2/4'
+                    onChange={(e) => {
+                        student.field =
+                            e.target.options[
+                                e.target.options.selectedIndex
+                            ].text;
+                    }}>
                     <option value='0' disabled>
                         Disciplinas
                     </option>
                     <option value='1'>Programação</option>
+                    <option value='2'>Banco de Dados</option>
                 </select>
             </div>
             <div className='text-left mt-8 text-2xl flex justify-between'>

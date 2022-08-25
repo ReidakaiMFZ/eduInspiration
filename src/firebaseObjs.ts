@@ -1,8 +1,7 @@
-import { useAuthState } from 'react-firebase-hooks/auth';
 import * as firebase from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
-
+import { getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
     // cspell:disable
     apiKey: 'AIzaSyBiyzLGCS-NN_iE0P8GQyvLK-zE6XWHhHc',
@@ -16,5 +15,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const fireStore = getFirestore(app);
 
-export { app, analytics, auth };
+export { app, analytics, auth, fireStore };
