@@ -7,7 +7,7 @@ interface userInterface {
     type: logged;
 }
 
-export const user = new Store({
-    username: 'anon',
+export const userData = new Store({
+    username: 'Anonimo',
     type: 'nan',
 } as userInterface);

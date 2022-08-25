@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
+import { userData } from '../user';
 
 export default function Student() {
     const [user] = useAuthState(auth);
@@ -46,6 +47,7 @@ export default function Student() {
             .then((result) => {
                 if (result) {
                     student.uid = result.user.uid;
+                    userData.update((s) => (s.username = student.name));
                     addDoc(collection(fireStore, 'students'), student);
                     updateProfile(result.user, {
                         displayName: student.name,

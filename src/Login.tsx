@@ -8,15 +8,16 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
+import { userData } from './user';
 
+const userInput = {
+    login: '',
+    password: '',
+};
 export default function Login() {
     let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
-    const userInput = {
-        login: '',
-        password: '',
-    };
     useEffect(() => {
         setTimeout(() => {
             setHomeButton(
@@ -59,22 +60,31 @@ export default function Login() {
                     method='post'
                     onSubmit={(e) => {
                         e.preventDefault();
-                        if (userInput.login == '' || userInput.password == '') {
+                        console.log(userInput.login);
+                        if (userInput.login == '' && userInput.password == '') {
                             signInAnonymously(auth);
-                        } else {
+                        } else if (
+                            userInput.login != '' &&
+                            userInput.password != ''
+                        ) {
                             signInWithEmailAndPassword(
                                 auth,
                                 userInput.login,
                                 userInput.password
                             )
                                 .then((result) => {
-                                    updateProfile(result.user, {
-                                        displayName: userInput.login,
-                                    });
+                                    userData.update(
+                                        (s) =>
+                                            (s.username =
+                                                result.user.displayName ||
+                                                userInput.login)
+                                    );
                                 })
                                 .catch((error) => {
                                     alert(error.message);
                                 });
+                        } else {
+                            alert('Preencha todos os campos');
                         }
                     }}
                     className={'flex flex-col gap-4 items-center'}>
@@ -86,8 +96,9 @@ export default function Login() {
                             id='login'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
                             onChange={(e) => {
-                                setText(e.target.value);
                                 userInput.login = e.target.value;
+                                console.log(e.target.value, userInput.login);
+                                setText(e.target.value);
                             }}
                         />
                     </div>
@@ -99,8 +110,8 @@ export default function Login() {
                             id='senha'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
                             onChange={(e) => {
-                                setText(e.target.value);
                                 userInput.password = e.target.value;
+                                setText(e.target.value);
                             }}
                         />
                     </div>
