@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom';
 import { User } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
-
+import { signOutWithState, userData } from './user';
 export default function Header() {
     const [user] = useAuthState(auth);
-
     return (
         <>
             <header className='w-full p-2 h-18 flex flex-row items-center justify-between border-white border-b-2'>
-                <img src='https://via.placeholder.com/140x100' alt='Logo' className='w-1/12 h-full' />
+                <img
+                    src='https://via.placeholder.com/140x100'
+                    alt='Logo'
+                    className='w-1/12 h-full'
+                />
                 <section className='w-1/6 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
                     <Link
                         to={'/business'}
@@ -36,15 +39,17 @@ export default function Header() {
 }
 
 function LoggedHeader() {
+    const userState = userData.useState((s) => s);
     const [user] = useAuthState(auth);
-
     return (
         <section className='w-1/2 items-end text-lg flex gap-4 flex-row-reverse'>
             <p className={'h-8 rounded'}>
-                {auth.currentUser?.displayName || 'Anonimo'}
+                {(user?.displayName || userState.username || 'Anonimo') +
+                    ' - ' +
+                    userState.type}
             </p>
             <p
-                onClick={(e) => signOut(auth as Auth)}
+                onClick={() => signOutWithState()}
                 className={
                     'h-8 rounded underline hover:text-xl transition-all duration-500'
                 }>

@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
+import { userData } from '../user';
 
 export default function Student() {
     const [user] = useAuthState(auth);
@@ -24,6 +25,7 @@ export default function Student() {
         address: '',
         addressNum: '',
         field: '',
+        uid: '',
     };
     const registerStudent = (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,7 +46,16 @@ export default function Student() {
             })
             .then((result) => {
                 if (result) {
+                    student.uid = result.user.uid;
+                    userData.update((s) => {
+                        s.username = student.name;
+                        s.type = 'student';
+                    });
                     addDoc(collection(fireStore, 'students'), student);
+                    addDoc(collection(fireStore, 'users'), {
+                        uid: result.user.uid,
+                        type: 'student',
+                    });
                     updateProfile(result.user, {
                         displayName: student.name,
                     }).catch((e) => alert(e));

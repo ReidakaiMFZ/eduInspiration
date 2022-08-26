@@ -1,15 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import home from './assets/home.svg';
-import { signInAnonymously } from 'firebase/auth';
+import {
+    signInAnonymously,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './firebaseObjs';
+import { auth, fireStore } from './firebaseObjs';
+import { userData } from './user';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { async } from '@firebase/util';
 
+const userInput = {
+    login: '',
+    password: '',
+};
 export default function Login() {
     let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
-
     useEffect(() => {
         setTimeout(() => {
             setHomeButton(
@@ -52,7 +62,39 @@ export default function Login() {
                     method='post'
                     onSubmit={(e) => {
                         e.preventDefault();
-                        signInAnonymously(auth);
+                        console.log(userInput.login);
+                        if (userInput.login == '' && userInput.password == '') {
+                            signInAnonymously(auth);
+                        } else if (
+                            userInput.login != '' &&
+                            userInput.password != ''
+                        ) {
+                            signInWithEmailAndPassword(
+                                auth,
+                                userInput.login,
+                                userInput.password
+                            )
+                                .then(async (result) => {
+                                    const q = query(
+                                        collection(fireStore, 'users'),
+                                        where('uid', '==', result.user.uid)
+                                    );
+                                    const resultado = await getDocs(q);
+                                    resultado.forEach(async (doc) => {
+                                        userData.update((s) => {
+                                            s.type = doc.data().type;
+                                            s.username =
+                                                result.user.displayName ||
+                                                userInput.login;
+                                        });
+                                    });
+                                })
+                                .catch((error) => {
+                                    alert(error.message);
+                                });
+                        } else {
+                            alert('Preencha todos os campos');
+                        }
                     }}
                     className={'flex flex-col gap-4 items-center'}>
                     <div className='text-left mt-8 text-2xl'>
@@ -62,7 +104,11 @@ export default function Login() {
                             name='login'
                             id='login'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={(e) => {
+                                userInput.login = e.target.value;
+                                console.log(e.target.value, userInput.login);
+                                setText(e.target.value);
+                            }}
                         />
                     </div>
                     <div className='text-left mt-8 text-2xl'>
@@ -72,7 +118,10 @@ export default function Login() {
                             name='senha'
                             id='senha'
                             className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={(e) => {
+                                userInput.password = e.target.value;
+                                setText(e.target.value);
+                            }}
                         />
                     </div>
                     <button

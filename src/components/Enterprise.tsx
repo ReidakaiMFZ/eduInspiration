@@ -3,6 +3,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
 import { auth, fireStore } from '../firebaseObjs';
+import { userData } from '../user';
 
 export default function Enterprise() {
     const [user] = useAuthState(auth);
@@ -17,6 +18,7 @@ export default function Enterprise() {
         cep: '',
         address: '',
         addressNum: '',
+        uid: '',
     };
     const registerEnterprise = (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,7 +38,13 @@ export default function Enterprise() {
             )
             .then((result) => {
                 if (result) {
+                    enterprise.uid = result.user.uid;
+                    userData.update((s) => {(s.username = enterprise.name); s.type = 'enterprise';});
                     addDoc(collection(fireStore, 'enterprises'), enterprise);
+                    addDoc(collection(fireStore, 'users'), {
+                        uid: result.user.uid,
+                        type: 'enterprise',
+                    });
                     updateProfile(result.user, {
                         displayName: enterprise.name,
                     }).catch((e) => alert(e));
