@@ -8,6 +8,7 @@ import ProjectView from './ProjectView';
 import FrontPageLogged from './FrontPageLogged';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
+import CreateNewProject from './CreateNewProject';
 
 function App() {
     const [user] = useAuthState(auth);
@@ -16,7 +17,7 @@ function App() {
             <Header />
             <Routes>
                 <Route path='/' element={user ? <FrontPageLogged /> : <FrontPage/>} />
-
+                <Route path='/newproject' element={<CreateNewProject />} />
                 <Route path='/about' element={<AboutUs />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
