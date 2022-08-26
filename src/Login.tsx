@@ -7,8 +7,10 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './firebaseObjs';
+import { auth, fireStore } from './firebaseObjs';
 import { userData } from './user';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 const userInput = {
     login: '',
@@ -72,13 +74,20 @@ export default function Login() {
                                 userInput.login,
                                 userInput.password
                             )
-                                .then((result) => {
-                                    userData.update(
-                                        (s) =>
-                                            (s.username =
-                                                result.user.displayName ||
-                                                userInput.login)
+                                .then(async (result) => {
+                                    const q = query(
+                                        collection(fireStore, 'users'),
+                                        where('uid', '==', result.user.uid)
                                     );
+                                    const resultado = await getDocs(q);
+                                    resultado.forEach(async (doc) => {
+                                        userData.update((s) => {
+                                            s.type = doc.data().type;
+                                            s.username =
+                                                result.user.displayName ||
+                                                userInput.login;
+                                        });
+                                    });
                                 })
                                 .catch((error) => {
                                     alert(error.message);
