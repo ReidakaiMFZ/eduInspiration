@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, fireStore } from './firebaseObjs';
-import { userData } from './user';
+import { updateTypeUser, userData } from './user';
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { async } from '@firebase/util';
 
@@ -81,12 +81,7 @@ export default function Login() {
                                     );
                                     const resultado = await getDocs(q);
                                     resultado.forEach(async (doc) => {
-                                        userData.update((s) => {
-                                            s.type = doc.data().type;
-                                            s.username =
-                                                result.user.displayName ||
-                                                userInput.login;
-                                        });
+                                        updateTypeUser(doc.data().type);
                                     });
                                 })
                                 .catch((error) => {

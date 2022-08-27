@@ -1,8 +1,8 @@
-import { signOut } from 'firebase/auth';
 import { Store } from 'pullstate';
+import { signOut } from 'firebase/auth';
 import { auth } from './firebaseObjs';
 
-type logged = 'nan' | 'student' | 'enterprise';
+export type logged = 'nan' | 'student' | 'enterprise';
 
 interface userInterface {
     username: string;
@@ -14,10 +14,18 @@ export const userData = new Store({
     type: 'nan',
 } as userInterface);
 
+export const updateTypeUser = (type: logged) => {
+    userData.update((s) => {
+        s.type = type;
+    });
+    localStorage.setItem('type', type);
+};
+
 export const signOutWithState = () => {
     userData.update((s) => {
         s.type = 'nan';
         s.username = 'Anonimo';
     });
+    localStorage.removeItem('type');
     signOut(auth);
 };
