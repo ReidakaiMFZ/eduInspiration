@@ -21,9 +21,9 @@ import {
 
 function App() {
     const [user, loading, error] = useAuthState(auth);
-    const userData = UserData.useUserData();
+    const data = UserData.useUserData();
     useEffect(() => {
-        if (userData.type == 'nan' && localStorage.getItem('type')) {
+        if (data.type == 'nan' && localStorage.getItem('type')) {
             UserData.updateTypeUser(localStorage.getItem('type') as logged);
         }
     }, []);

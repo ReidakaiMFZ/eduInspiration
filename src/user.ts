@@ -19,7 +19,7 @@ const updateUsername = (username: string) => {
         state.username = username;
     });
 };
-const useUserData = userData.useState;
+const useUserData = () => userData.useState((s) => s);
 const updateTypeUser = (type: logged) => {
     userData.update((s) => {
         s.type = type;
@@ -36,7 +36,7 @@ const signOutWithState = () => {
     signOut(auth);
 };
 
-export class UserData{
+export class UserData {
     static updateUsername = updateUsername;
     static useUserData = useUserData;
     static updateTypeUser = updateTypeUser;
