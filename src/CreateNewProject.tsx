@@ -1,12 +1,19 @@
-import { app, fireStore } from './firebaseObjs';
+import { app, fireStore, auth } from './firebaseObjs';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { addDoc, collection, query } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 const data = {
     title: '',
     description: '',
     image: null as File | null,
+    enterpriseUID: '',
 };
 export default function CreateNewProject() {
+    const [user] = useAuthState(auth);
+    if (user?.uid) {
+        data.enterpriseUID = user.uid;
+    }
     const seeImage = (e: any) => {
         var image = new FileReader();
         const imgFile = e.target.files[0] as File;
@@ -18,8 +25,11 @@ export default function CreateNewProject() {
                 'imagePreview'
             ) as HTMLImageElement;
             preview.src = e.target.result;
+            const divPreviewer = document.getElementById('imagePreview') as HTMLDivElement;
+            divPreviewer.style.cssText = 'margin-top: 0.5rem; height: 7rem; width: 12rem;';
         };
     };
+
     const createProject = (e: React.FormEvent) => {
         e.preventDefault();
         console.log(data);
@@ -36,7 +46,9 @@ export default function CreateNewProject() {
                     title: data.title,
                     description: data.description,
                     image: e.ref.fullPath,
+                    enterpriseUID: data.enterpriseUID,
                 });
+                location.href = '/';
             })
             .catch((e) => alert(e.message));
     };
@@ -55,7 +67,7 @@ export default function CreateNewProject() {
                 />
                 <br />
                 <label htmlFor=''>Banner do projeto:</label>
-                <div className='hidden w-48 h-28 mt-2'>
+                <div className=''>
                     <img src='' id='imagePreview' className='object-fit' />
                 </div>
                 <input
@@ -64,6 +76,7 @@ export default function CreateNewProject() {
                     id=''
                     onChange={seeImage}
                     accept='.jpg, .jpeg, .png, .jfif'
+                    className='mt-2'
                 />
                 <br />
 
