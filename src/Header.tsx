@@ -56,7 +56,7 @@ function LoggedHeader() {
                 Sair
             </p>
             {userState.type === 'enterprise' ? (
-                <Link to={'/createProject'}>Criar Projeto</Link>
+                <Link to={'/newproject'}>Criar Projeto</Link>
             ) : null}
         </section>
     );

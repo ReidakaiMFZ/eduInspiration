@@ -52,7 +52,6 @@ function App() {
                 <Route path='/about' element={<AboutUs />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/projectview' element={<ProjectView />} />
                 <Route path='/:id' element={<ProjectView />} />
                 <Route path='/createProject' element={<CreateNewProject />} />
             </Routes>
