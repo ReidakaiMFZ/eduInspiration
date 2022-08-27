@@ -9,11 +9,17 @@ interface userInterface {
     type: logged;
 }
 
-export const userData = new Store({
+const userData = new Store({
     username: 'Anonimo',
     type: 'nan',
 } as userInterface);
 
+export const updateUsername = (username: string) => {
+    userData.update((state) => {
+        state.username = username;
+    });
+};
+export const useUserData = userData.useState;
 export const updateTypeUser = (type: logged) => {
     userData.update((s) => {
         s.type = type;

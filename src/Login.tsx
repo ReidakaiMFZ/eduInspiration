@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, fireStore } from './firebaseObjs';
-import { updateTypeUser, userData } from './user';
+import { updateTypeUser } from './user';
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { async } from '@firebase/util';
 
