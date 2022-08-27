@@ -14,20 +14,20 @@ const userData = new Store({
     type: 'nan',
 } as userInterface);
 
-export const updateUsername = (username: string) => {
+const updateUsername = (username: string) => {
     userData.update((state) => {
         state.username = username;
     });
 };
-export const useUserData = userData.useState;
-export const updateTypeUser = (type: logged) => {
+const useUserData = userData.useState;
+const updateTypeUser = (type: logged) => {
     userData.update((s) => {
         s.type = type;
     });
     localStorage.setItem('type', type);
 };
 
-export const signOutWithState = () => {
+const signOutWithState = () => {
     userData.update((s) => {
         s.type = 'nan';
         s.username = 'Anonimo';
@@ -35,3 +35,10 @@ export const signOutWithState = () => {
     localStorage.removeItem('type');
     signOut(auth);
 };
+
+export class UserData{
+    static updateUsername = updateUsername;
+    static useUserData = useUserData;
+    static updateTypeUser = updateTypeUser;
+    static signOutWithState = signOutWithState;
+}

@@ -9,7 +9,7 @@ import FrontPageLogged from './FrontPageLogged';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, fireStore } from './firebaseObjs';
 import CreateNewProject from './CreateNewProject';
-import { logged, updateTypeUser, useUserData } from './user';
+import { logged, UserData } from './user';
 import { useEffect } from 'react';
 import {
     collection,
@@ -21,10 +21,10 @@ import {
 
 function App() {
     const [user, loading, error] = useAuthState(auth);
-    const UserData = useUserData();
+    const userData = UserData.useUserData();
     useEffect(() => {
-        if (UserData.type == 'nan' && localStorage.getItem('type')) {
-            updateTypeUser(localStorage.getItem('type') as logged);
+        if (userData.type == 'nan' && localStorage.getItem('type')) {
+            UserData.updateTypeUser(localStorage.getItem('type') as logged);
         }
     }, []);
     return (

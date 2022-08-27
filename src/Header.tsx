@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { User } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
-import { signOutWithState, useUserData } from './user';
+import { UserData } from './user';
 export default function Header() {
     const [user] = useAuthState(auth);
     return (
@@ -39,7 +39,7 @@ export default function Header() {
 }
 
 function LoggedHeader() {
-    const userState = useUserData();
+    const userState = UserData.useUserData();
     const [user] = useAuthState(auth);
     return (
         <section className='w-1/2 items-end text-lg flex gap-4 flex-row-reverse'>
@@ -49,7 +49,7 @@ function LoggedHeader() {
                     userState.type}
             </p>
             <p
-                onClick={() => signOutWithState()}
+                onClick={() => UserData.signOutWithState()}
                 className={
                     'h-8 rounded underline hover:text-xl transition-all duration-500'
                 }>

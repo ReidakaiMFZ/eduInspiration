@@ -3,7 +3,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
 import { auth, fireStore } from '../firebaseObjs';
-import { updateTypeUser, updateUsername } from '../user';
+import { UserData } from '../user';
 
 export default function Enterprise() {
     const [user] = useAuthState(auth);
@@ -39,8 +39,8 @@ export default function Enterprise() {
             .then((result) => {
                 if (result) {
                     enterprise.uid = result.user.uid;
-                    updateUsername(enterprise.name);
-                    updateTypeUser('enterprise');
+                    UserData.updateUsername(enterprise.name);
+                    UserData.updateTypeUser('enterprise');
                     addDoc(collection(fireStore, 'enterprises'), enterprise);
                     addDoc(collection(fireStore, 'users'), {
                         uid: result.user.uid,

@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
-import { updateTypeUser, updateUsername } from '../user';
+import { UserData } from '../user';
 
 export default function Student() {
     const [user] = useAuthState(auth);
@@ -47,8 +47,8 @@ export default function Student() {
             .then((result) => {
                 if (result) {
                     student.uid = result.user.uid;
-                    updateUsername(student.name);
-                    updateTypeUser('student');
+                    UserData.updateUsername(student.name);
+                    UserData.updateTypeUser('student');
                     addDoc(collection(fireStore, 'students'), student);
                     addDoc(collection(fireStore, 'users'), {
                         uid: result.user.uid,
