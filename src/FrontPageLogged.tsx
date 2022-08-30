@@ -33,7 +33,7 @@ export default function FrontPageLogged() {
                 />
             </div>
             <div
-                className='h-3/4 w-screen flex items-baseline flex-wrap justify-center'
+                className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
                 id='principal'>
                 {projects.map((project) => {
                     return (
@@ -60,13 +60,20 @@ function Project(props: projectsInterface) {
             to={{
                 pathname: `project/${props.id}`,
             }}
-            state={{ data: props }}>
-            <div className='flex flex-col w-1/5 mx-2 my-1 bg-neutral-900'>
-                <img src={props.image} alt='' className='object-scale-down' />
+            state={{ data: props }}
+            className='w-full'>
+            <div className='flex flex-col my-1 items-center bg-neutral-900'>
+                <img
+                    src={props.image}
+                    alt=''
+                    className='object-cover w-52 h-40'
+                />
                 <div className='m-2'>
                     <p>{props.profession}</p>
-                    <h3 className='text-2xl bold my-2'>{props.title}</h3>
-                    <p>{props.description}</p>
+                    <h3 className='text-2xl bold text-center'>{props.title}</h3>
+                    <p className='overflow-hidden text-center'>
+                        {props.description}
+                    </p>
                 </div>
             </div>
         </Link>
