@@ -58,11 +58,9 @@ function Project(props: projectsInterface) {
     return (
         <Link
             to={{
-                pathname: `/${props.id}`,
-                search: `?data=${JSON.stringify(props)}`,
+                pathname: `project/${props.id}`,
             }}
-            state={{ data: props }}
-            >
+            state={{ data: props }}>
             <div className='flex flex-col w-1/5 mx-2 my-1 bg-neutral-900'>
                 <img src={props.image} alt='' className='object-scale-down' />
                 <div className='m-2'>
