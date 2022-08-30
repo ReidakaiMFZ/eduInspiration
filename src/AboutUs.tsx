@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 export default function AboutUs() {
     const { who } = useParams();
     const us =

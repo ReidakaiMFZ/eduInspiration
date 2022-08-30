@@ -45,6 +45,7 @@ export default function Enterprise() {
                     UserData.updateTypeUser('enterprise');
                     addDoc(collection(fireStore, 'enterprises'), enterprise);
                     addDoc(collection(fireStore, 'users'), {
+                        type: 'enterprise',
                         uid: result.user.uid,
                     });
                     updateProfile(result.user, {
@@ -54,15 +55,19 @@ export default function Enterprise() {
             });
     };
     const handlerCep = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const street = document.getElementById('enterpriseStreet') as HTMLInputElement;
-        const state = document.getElementById('enterpriseState') as HTMLInputElement;
+        const street = document.getElementById(
+            'enterpriseStreet'
+        ) as HTMLInputElement;
+        const state = document.getElementById(
+            'enterpriseState'
+        ) as HTMLInputElement;
 
-        getCep(e.target.value).then((cep) =>{
-            console.log(cep)
+        getCep(e.target.value).then((cep) => {
+            console.log(cep);
             street.value = cep.logradouro;
             state.value = cep.localidade;
         });
-    }
+    };
     return (
         <form
             action=''
@@ -118,8 +123,8 @@ export default function Enterprise() {
                     id='enterpriseCep'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
                     onChange={(_) => {
-                        enterprise.cep = _.target.value
-                        handlerCep(_)
+                        enterprise.cep = _.target.value;
+                        handlerCep(_);
                     }}
                 />
             </div>
@@ -131,7 +136,7 @@ export default function Enterprise() {
                     id='enterpriseState'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
                     onChange={(_) => {
-                        enterprise.state = _.target.value
+                        enterprise.state = _.target.value;
                     }}
                 />
             </div>
@@ -182,7 +187,7 @@ export default function Enterprise() {
             </div>
             <button
                 type='submit'
-                className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+                className='bg-gpink rounded-full text-4xl px-24 mt-24 h-16 underline transition-all duration-300 '>
                 Cadastrar
             </button>
         </form>
