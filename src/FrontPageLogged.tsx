@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { async } from '@firebase/util';
+import { useLoadingValue } from 'react-firebase-hooks/auth/dist/util';
 
 export default function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
@@ -14,14 +15,17 @@ export default function FrontPageLogged() {
         const docs = projects.docs.map(
             (doc) => ({ ...doc.data(), id: doc.id } as projectsInterface)
         );
-        // setProjects(projects.docs.map(doc => ({...doc.data(), id: doc.id} as never)))
         const projectsWithImage = docs.map(async (doc) => {
             doc.image = await getDownloadURL(ref(storage, doc.image));
             return doc;
         });
         Promise.all(projectsWithImage).then((docs) => setProjects(docs));
     };
-    getProjects();
+    const principal = document.getElementById('principal') as HTMLDivElement;
+    useEffect(() => {
+        getProjects();
+
+    } , []);
 
     return (
         <div className=''>
@@ -35,20 +39,22 @@ export default function FrontPageLogged() {
             <div
                 className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
                 id='principal'>
-                {projects.map((project) => {
-                    return (
-                        <>
-                            <Project
-                                id={project.id}
-                                title={project.title}
-                                description={project.description}
-                                image={project.image}
-                                profession={project.profession}
-                                enterpriseUID={project.enterpriseUID}
-                            />
-                        </>
-                    );
-                })}
+                {
+                    projects.map((project) => {
+                        return (
+                            <>
+                                <Project
+                                    id={project.id}
+                                    title={project.title}
+                                    description={project.description}
+                                    image={project.image}
+                                    profession={project.profession}
+                                    enterpriseUID={project.enterpriseUID}
+                                />
+                            </>
+                        );
+                    })
+                }
             </div>
         </div>
     );
