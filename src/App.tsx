@@ -30,27 +30,31 @@ function App() {
     return (
         <>
             {!loading ? (
-                <main className='bg-gblack w-full h-full'>
-                    <Header />
-                    <Routes>
-                        <Route
-                            path='/'
-                            element={user ? <FrontPageLogged /> : <FrontPage />}
-                        />
-                        <Route
-                            path='/newproject'
-                            element={<CreateNewProject />}
-                        />
-                        <Route path='/about' element={<AboutUs />} />
-                        <Route path='/register' element={<Register />} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/:id' element={<ProjectView />} />
-                        <Route
-                            path='/createProject'
-                            element={<CreateNewProject />}
-                        />
-                    </Routes>
-                </main>
+                <>
+                    <main className='bg-gblack w-full h-full'>
+                        <Header />
+                        <Routes>
+                            <Route
+                                path='/'
+                                element={
+                                    user ? <FrontPageLogged /> : <FrontPage />
+                                }
+                            />
+                            <Route
+                                path='/newproject'
+                                element={<CreateNewProject />}
+                            />
+                            <Route path='/about/:thing' element={<AboutUs />} />
+                            <Route path='/register' element={<Register />} />
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/:id' element={<ProjectView />} />
+                            <Route
+                                path='/createProject'
+                                element={<CreateNewProject />}
+                            />
+                        </Routes>
+                    </main>
+                </>
             ) : (
                 <h2>Loading...</h2>
             )}

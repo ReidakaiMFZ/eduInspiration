@@ -5,29 +5,31 @@ import { User } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebaseObjs';
 import { UserData } from './user';
+import logo from './assets/logo.png';
 export default function Header() {
     const [user] = useAuthState(auth);
     return (
         <>
             <header className='w-full p-2 h-18 flex flex-row items-center justify-between border-white border-b-2'>
-                <img
-                    src='https://via.placeholder.com/140x100'
-                    alt='Logo'
-                    className='w-1/12 h-full'
-                />
-                <section className='w-1/6 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
+                <img src={logo} alt='Logo' className='w-1/12 h-full' />
+                <section className='w-1/4 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
                     <Link
-                        to={'/business'}
+                        to='/'
+                        className='h-8 rounded underline hover:text-xl transition-all duration-500'>
+                        Home
+                    </Link>
+                    <Link
+                        to={'/about/business'}
                         className='h-8 rounded underline hover:text-xl transition-all duration-500'>
                         Empresas
                     </Link>
                     <Link
-                        to={'/school'}
+                        to={'/about/school'}
                         className='h-8 rounded underline hover:text-xl transition-all duration-500'>
                         Escolas
                     </Link>
                     <Link
-                        to={'/about'}
+                        to={'/about/us'}
                         className='h-8 rounded underline hover:text-xl transition-all duration-500'>
                         Sobre Nós
                     </Link>
