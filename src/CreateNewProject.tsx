@@ -25,8 +25,11 @@ export default function CreateNewProject() {
                 'imagePreview'
             ) as HTMLImageElement;
             preview.src = e.target.result;
-            const divPreviewer = document.getElementById('imagePreview') as HTMLDivElement;
-            divPreviewer.style.cssText = 'margin-top: 0.5rem; height: 7rem; width: 12rem;';
+            const divPreviewer = document.getElementById(
+                'imagePreview'
+            ) as HTMLDivElement;
+            divPreviewer.style.cssText =
+                'margin-top: 0.5rem; height: 7rem; width: 12rem;';
         };
     };
 
@@ -47,8 +50,9 @@ export default function CreateNewProject() {
                     description: data.description,
                     image: e.ref.fullPath,
                     enterpriseUID: data.enterpriseUID,
+                }).then(() => {
+                    location.href = '/';
                 });
-                location.href = '/';
             })
             .catch((e) => alert(e.message));
     };
