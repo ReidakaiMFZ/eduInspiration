@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import handshake from './assets/handshake.jpg';
 export default function FrontPage() {
     return (
         <div className='mt-20 min-h-max min-w-max flex flex-row animate-fade-in'>
@@ -24,7 +24,11 @@ export default function FrontPage() {
                 </Link>
             </div>
             <div className='w-1/2 px-36 '>
-                <img src='#' alt='Foto' className='w-full h-full bg-gpink' />
+                <img
+                    src={handshake}
+                    alt='Foto'
+                    className='w-full h-full bg-gpink rounded-3xl'
+                />
             </div>
         </div>
     );
