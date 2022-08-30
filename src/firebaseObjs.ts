@@ -26,5 +26,9 @@ export interface projectsInterface {
     enterpriseUID: string;
     id: string;
 }
+export interface subjectsInterface {
+    id: string;
+    name: string;
+}
 
 export { app, analytics, auth, fireStore, storage };

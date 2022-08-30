@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
 import { auth, fireStore } from '../firebaseObjs';
 import { UserData } from '../user';
+import { getCep } from '../CepApi';
 
 export default function Enterprise() {
     const [user] = useAuthState(auth);
@@ -16,6 +17,7 @@ export default function Enterprise() {
         cnpj: '',
         phone: '',
         cep: '',
+        state: '',
         address: '',
         addressNum: '',
         uid: '',
@@ -51,6 +53,16 @@ export default function Enterprise() {
                 }
             });
     };
+    const handlerCep = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const street = document.getElementById('enterpriseStreet') as HTMLInputElement;
+        const state = document.getElementById('enterpriseState') as HTMLInputElement;
+
+        getCep(e.target.value).then((cep) =>{
+            console.log(cep)
+            street.value = cep.logradouro;
+            state.value = cep.localidade;
+        });
+    }
     return (
         <form
             action=''
@@ -105,7 +117,22 @@ export default function Enterprise() {
                     name='enterpriseCep'
                     id='enterpriseCep'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                    onChange={(_) => (enterprise.cep = _.target.value)}
+                    onChange={(_) => {
+                        enterprise.cep = _.target.value
+                        handlerCep(_)
+                    }}
+                />
+            </div>
+            <div className='text-left mt-8 text-2xl'>
+                <label htmlFor='enterpriseState'>Estado:</label>
+                <input
+                    type='text'
+                    name='enterpriseState'
+                    id='enterpriseState'
+                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(_) => {
+                        enterprise.state = _.target.value
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
