@@ -89,7 +89,7 @@ export default function Teacher() {
                     id='professorConfirmPassword'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'/>
             </div>
-            <button type='submit' className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+            <button type='submit' className='bg-gpink rounded-full text-4xl px-24 mt-24 h-16 underline transition-all duration-300'>
                 Cadastrar
             </button>
         </form>
