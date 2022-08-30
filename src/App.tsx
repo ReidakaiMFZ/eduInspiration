@@ -44,7 +44,7 @@ function App() {
                                 path='/newproject'
                                 element={<CreateNewProject />}
                             />
-                            <Route path='/about/:thing' element={<AboutUs />} />
+                            <Route path='/about/:who' element={<AboutUs />} />
                             <Route path='/register' element={<Register />} />
                             <Route path='/login' element={<Login />} />
                             <Route
