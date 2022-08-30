@@ -18,5 +18,13 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const fireStore = getFirestore(app);
 const storage = getStorage(app);
+export interface projectsInterface {
+    image: string;
+    profession: string;
+    title: string;
+    description: string;
+    enterpriseUID: string;
+    id: string;
+}
 
 export { app, analytics, auth, fireStore, storage };

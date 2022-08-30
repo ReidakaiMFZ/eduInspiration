@@ -1,5 +1,5 @@
 import { query, collection, getDocs, QuerySnapshot } from 'firebase/firestore';
-import { fireStore, storage } from './firebaseObjs';
+import { fireStore, projectsInterface, storage } from './firebaseObjs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
@@ -7,12 +7,12 @@ import { async } from '@firebase/util';
 
 export default function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
-    const [projects, setProjects] = useState([] as interProject[]);
+    const [projects, setProjects] = useState([] as projectsInterface[]);
 
     const getProjects = async () => {
         const projects = await getDocs(projRef);
         const docs = projects.docs.map(
-            (doc) => ({ ...doc.data(), id: doc.id } as interProject)
+            (doc) => ({ ...doc.data(), id: doc.id } as projectsInterface)
         );
         // setProjects(projects.docs.map(doc => ({...doc.data(), id: doc.id} as never)))
         const projectsWithImage = docs.map(async (doc) => {
@@ -54,18 +54,15 @@ export default function FrontPageLogged() {
     );
 }
 
-interface interProject {
-    image: string;
-    profession: string;
-    title: string;
-    description: string;
-    enterpriseUID: string;
-    id: string;
-}
-
-function Project(props: interProject) {
+function Project(props: projectsInterface) {
     return (
-        <Link to={'/' + props.enterpriseUID}>
+        <Link
+            to={{
+                pathname: `/${props.id}`,
+                search: `?data=${JSON.stringify(props)}`,
+            }}
+            state={{ data: props }}
+            >
             <div className='flex flex-col w-1/5 mx-2 my-1 bg-neutral-900'>
                 <img src={props.image} alt='' className='object-scale-down' />
                 <div className='m-2'>
