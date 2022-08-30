@@ -17,20 +17,8 @@ const userInput = {
     password: '',
 };
 export default function Login() {
-    let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
-    useEffect(() => {
-        setTimeout(() => {
-            setHomeButton(
-                <Link
-                    to={'/'}
-                    className='absolute bottom-4 right-4 w-24 h-24 animate-fade-in'>
-                    <img src={home} alt='Home' className='w-full h-full' />
-                </Link>
-            );
-        }, 1000);
-    }, []);
     return (
         <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
             <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center bg-black py-8 px-24 text-xl'>
@@ -140,7 +128,7 @@ export default function Login() {
                     </Link>
                 </div>
             </div>
-            {user ? <Navigate to={'/'} /> : homeButton}
+            {user ? <Navigate to={'/'} /> : ''}
         </div>
     );
 }
