@@ -1,6 +1,6 @@
 # Edu inspiration
 
-[![Generic badge](https://img.shields.io/badge/Beta-yes-green.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Alpha-yes-green.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](https://shields.io/)
 
 
