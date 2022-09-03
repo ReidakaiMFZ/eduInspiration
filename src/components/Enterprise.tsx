@@ -3,7 +3,8 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
 import { auth, fireStore } from '../firebaseObjs';
-import { userData } from '../user';
+import { UserData } from '../user';
+import { getCep } from '../CepApi';
 
 export default function Enterprise() {
     const [user] = useAuthState(auth);
@@ -16,6 +17,7 @@ export default function Enterprise() {
         cnpj: '',
         phone: '',
         cep: '',
+        state: '',
         address: '',
         addressNum: '',
         uid: '',
@@ -39,17 +41,32 @@ export default function Enterprise() {
             .then((result) => {
                 if (result) {
                     enterprise.uid = result.user.uid;
-                    userData.update((s) => {(s.username = enterprise.name); s.type = 'enterprise';});
+                    UserData.updateUsername(enterprise.name);
+                    UserData.updateTypeUser('enterprise');
                     addDoc(collection(fireStore, 'enterprises'), enterprise);
                     addDoc(collection(fireStore, 'users'), {
-                        uid: result.user.uid,
                         type: 'enterprise',
+                        uid: result.user.uid,
                     });
                     updateProfile(result.user, {
                         displayName: enterprise.name,
                     }).catch((e) => alert(e));
                 }
             });
+    };
+    const handlerCep = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const street = document.getElementById(
+            'enterpriseStreet'
+        ) as HTMLInputElement;
+        const state = document.getElementById(
+            'enterpriseState'
+        ) as HTMLInputElement;
+
+        getCep(e.target.value).then((cep) => {
+            console.log(cep);
+            street.value = cep.logradouro;
+            state.value = cep.localidade;
+        });
     };
     return (
         <form
@@ -105,7 +122,22 @@ export default function Enterprise() {
                     name='enterpriseCep'
                     id='enterpriseCep'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                    onChange={(_) => (enterprise.cep = _.target.value)}
+                    onChange={(_) => {
+                        enterprise.cep = _.target.value;
+                        handlerCep(_);
+                    }}
+                />
+            </div>
+            <div className='text-left mt-8 text-2xl'>
+                <label htmlFor='enterpriseState'>Estado:</label>
+                <input
+                    type='text'
+                    name='enterpriseState'
+                    id='enterpriseState'
+                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(_) => {
+                        enterprise.state = _.target.value;
+                    }}
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
@@ -155,7 +187,7 @@ export default function Enterprise() {
             </div>
             <button
                 type='submit'
-                className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+                className='bg-gpink rounded-full text-4xl px-24 mt-24 h-16 underline transition-all duration-300 '>
                 Cadastrar
             </button>
         </form>

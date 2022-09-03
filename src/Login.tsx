@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, fireStore } from './firebaseObjs';
-import { userData } from './user';
+import { UserData } from './user';
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { async } from '@firebase/util';
 
@@ -17,43 +17,11 @@ const userInput = {
     password: '',
 };
 export default function Login() {
-    let [homeButton, setHomeButton]: [JSX.Element | null, any] = useState(null);
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
-    useEffect(() => {
-        setTimeout(() => {
-            setHomeButton(
-                <Link
-                    to={'/'}
-                    className='absolute bottom-4 right-4 w-24 h-24 animate-fade-in'>
-                    <img src={home} alt='Home' className='w-full h-full' />
-                </Link>
-            );
-        }, 1000);
-    }, []);
     return (
         <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
             <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center bg-black py-8 px-24 text-xl'>
-                <div className='flex flex-row-reverse gap-4'>
-                    <div>
-                        <label htmlFor='slcTipo'>
-                            Selecione como quer logar:{' '}
-                        </label>
-                        <select
-                            name='slcTipo'
-                            id='slcTipo'
-                            placeholder='Tipo de usuário'
-                            className='bg-gblack w-1/3'>
-                            <option value='0' disabled>
-                                Tipo de usuário
-                            </option>
-                            <option value='1'>Aluno</option>
-                            <option value='2'>Professor</option>
-                            <option value='3'>Empresa</option>
-                            <option value='4'>Escola</option>
-                        </select>
-                    </div>
-                </div>
                 <p className='text-bold underline text-4xl  mt-8 text-center'>
                     Login
                 </p>
@@ -81,12 +49,9 @@ export default function Login() {
                                     );
                                     const resultado = await getDocs(q);
                                     resultado.forEach(async (doc) => {
-                                        userData.update((s) => {
-                                            s.type = doc.data().type;
-                                            s.username =
-                                                result.user.displayName ||
-                                                userInput.login;
-                                        });
+                                        UserData.updateTypeUser(
+                                            doc.data().type
+                                        );
                                     });
                                 })
                                 .catch((error) => {
@@ -139,13 +104,13 @@ export default function Login() {
                     <Link
                         to={'/register'}
                         className={
-                            'bg-gpink rounded-full flex items-center justify-center  w-1/3 h-16'
+                            'bg-gpink rounded-full flex items-center justify-center  w-1/2 h-16'
                         }>
                         Cadastrar-se
                     </Link>
                 </div>
             </div>
-            {user ? <Navigate to={'/'} /> : homeButton}
+            {user ? <Navigate to={'/'} /> : ''}
         </div>
     );
 }

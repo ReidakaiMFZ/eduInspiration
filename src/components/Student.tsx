@@ -1,6 +1,11 @@
-import { collection, serverTimestamp } from 'firebase/firestore';
-import React from 'react';
-import { auth, fireStore } from '../firebaseObjs';
+import {
+    collection,
+    query,
+    serverTimestamp,
+    getDocs,
+} from 'firebase/firestore';
+import React, { SetStateAction, useEffect, useState } from 'react';
+import { auth, fireStore, subjectsInterface } from '../firebaseObjs';
 import { addDoc } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
@@ -9,7 +14,8 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router';
-import { userData } from '../user';
+import { UserData } from '../user';
+import { getCep } from '../CepApi';
 
 export default function Student() {
     const [user] = useAuthState(auth);
@@ -22,9 +28,10 @@ export default function Student() {
         cpf: '',
         phone: '',
         cep: '',
+        state: '',
         address: '',
         addressNum: '',
-        field: '',
+        field: 0,
         uid: '',
     };
     const registerStudent = (e: React.FormEvent) => {
@@ -47,10 +54,8 @@ export default function Student() {
             .then((result) => {
                 if (result) {
                     student.uid = result.user.uid;
-                    userData.update((s) => {
-                        s.username = student.name;
-                        s.type = 'student';
-                    });
+                    UserData.updateUsername(student.name);
+                    UserData.updateTypeUser('student');
                     addDoc(collection(fireStore, 'students'), student);
                     addDoc(collection(fireStore, 'users'), {
                         uid: result.user.uid,
@@ -63,6 +68,33 @@ export default function Student() {
             });
 
         addDoc(collection(fireStore, 'students'), student);
+    };
+    const [subject, setSubject] = useState([] as subjectsInterface[]);
+    const subjectsRef = query(collection(fireStore, 'subjects'));
+    const getSubjects = async () => {
+        const subjects = await getDocs(subjectsRef);
+        setSubject(
+            subjects.docs.map(
+                (doc) => ({ ...doc.data(), id: doc.id } as subjectsInterface)
+            )
+        );
+    };
+    useEffect(() => {
+        getSubjects();
+    }, []);
+    const handlerCep = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const street = document.getElementById(
+            'studentStreet'
+        ) as HTMLInputElement;
+        const state = document.getElementById(
+            'studentState'
+        ) as HTMLInputElement;
+
+        getCep(e.target.value).then((cep) => {
+            console.log(cep);
+            street.value = cep.logradouro;
+            state.value = cep.localidade;
+        });
     };
     return (
         <form
@@ -125,8 +157,22 @@ export default function Student() {
                     name='studentCep'
                     id='studentCep'
                     className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    pattern='[0-9]{8}'
                     onChange={(e) => {
+                        handlerCep(e);
                         student.cep = e.target.value;
+                    }}
+                />
+            </div>
+            <div className='text-left mt-8 text-2xl'>
+                <label htmlFor='studentState'>estado:</label>
+                <input
+                    type='text'
+                    name='studentState'
+                    id='studentState'
+                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                    onChange={(e) => {
+                        student.state = e.target.value;
                     }}
                 />
             </div>
@@ -165,16 +211,19 @@ export default function Student() {
                     placeholder='Disciplinas'
                     className='bg-gblack w-2/4'
                     onChange={(e) => {
-                        student.field =
-                            e.target.options[
-                                e.target.options.selectedIndex
-                            ].text;
+                        student.field = parseInt(
+                            e.target.options[e.target.options.selectedIndex]
+                                .text
+                        );
                     }}>
                     <option value='0' disabled>
                         Disciplinas
                     </option>
-                    <option value='1'>Programação</option>
-                    <option value='2'>Banco de Dados</option>
+                    {subject.map((subject) => (
+                        <option key={subject.id} value={subject.id}>
+                            {subject.name}
+                        </option>
+                    ))}
                 </select>
             </div>
             <div className='text-left mt-8 text-2xl flex justify-between'>
@@ -218,7 +267,7 @@ export default function Student() {
             </div>
             <button
                 type='submit'
-                className='bg-gpink rounded-full text-5xl w-full mt-24 h-24 underline'>
+                className='bg-gpink rounded-full text-4xl px-24 mt-24 h-16 underline transition-all duration-300'>
                 Cadastrar
             </button>
         </form>
