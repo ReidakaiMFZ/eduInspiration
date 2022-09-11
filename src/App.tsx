@@ -57,7 +57,7 @@ function App() {
                                 element={<CreateNewProject />}
                             />
                             <Route
-                                path=''
+                                path='/OneProject'
                                 element={<OneProject />}
                             />
                         </Routes>
