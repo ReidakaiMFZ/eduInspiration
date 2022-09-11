@@ -1,4 +1,5 @@
 import Header from './Header';
+import OneProject from './OneProject';
 import FrontPage from './FrontPage';
 import { Link, Routes, Route } from 'react-router-dom';
 import AboutUs from './AboutUs';
@@ -54,6 +55,10 @@ function App() {
                             <Route
                                 path='/createProject'
                                 element={<CreateNewProject />}
+                            />
+                            <Route
+                                path=''
+                                element={<OneProject />}
                             />
                         </Routes>
                     </main>
