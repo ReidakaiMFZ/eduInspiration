@@ -1,14 +1,13 @@
-import { query, collection, getDocs, QuerySnapshot } from 'firebase/firestore';
+import { query, collection, getDocs } from 'firebase/firestore';
 import { fireStore, projectsInterface, storage } from './firebaseObjs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
-import { async } from '@firebase/util';
-import { useLoadingValue } from 'react-firebase-hooks/auth/dist/util';
 
 export default function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
     const [projects, setProjects] = useState([] as projectsInterface[]);
+    const [loading, setLoading] = useState(true);
 
     const getProjects = async () => {
         const projects = await getDocs(projRef);
@@ -20,11 +19,12 @@ export default function FrontPageLogged() {
             return doc;
         });
         Promise.all(projectsWithImage).then((docs) => setProjects(docs));
+        setLoading(false);
     };
     const principal = document.getElementById('principal') as HTMLDivElement;
     useEffect(() => {
         getProjects();
-
+        console.log("load again")
     } , []);
 
     return (
@@ -36,26 +36,28 @@ export default function FrontPageLogged() {
                     className='h-36 w-screen'
                 />
             </div>
-            <div
-                className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
-                id='principal'>
-                {
-                    projects.map((project) => {
-                        return (
-                            <>
-                                <Project
-                                    id={project.id}
-                                    title={project.title}
-                                    description={project.description}
-                                    image={project.image}
-                                    profession={project.profession}
-                                    enterpriseUID={project.enterpriseUID}
-                                />
-                            </>
-                        );
-                    })
+                {loading ? "loading..." :
+                    <div 
+                        className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
+                        id='principal'>
+                        {
+                            projects.map((project) => {
+                                return (
+                                    <>
+                                        <Project
+                                            id={project.id}
+                                            title={project.title}
+                                            description={project.description}
+                                            image={project.image}
+                                            profession={project.profession}
+                                            enterpriseUID={project.enterpriseUID}
+                                        />
+                                    </>
+                                );
+                            })
+                        }
+                    </div>
                 }
-            </div>
         </div>
     );
 }
@@ -72,12 +74,12 @@ function Project(props: projectsInterface) {
                 <img
                     src={props.image}
                     alt=''
-                    className='object-cover w-52 h-40'
+                    className='object-cover w-52 h-40 mt-3'
                 />
                 <div className='m-2'>
                     <p>{props.profession}</p>
-                    <h3 className='text-2xl bold text-center'>{props.title}</h3>
-                    <p className='overflow-hidden text-center'>
+                    <h3 className='text-2xl bold text-center p-1 h-16 line-clamp-2'>{props.title}</h3>
+                    <p className='text-justify line-clamp-3'>
                         {props.description}
                     </p>
                 </div>
