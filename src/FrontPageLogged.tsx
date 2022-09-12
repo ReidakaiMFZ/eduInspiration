@@ -3,6 +3,7 @@ import { fireStore, projectsInterface, storage } from './firebaseObjs';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
+import { getSubjects } from './getSubjects';
 
 export default function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
@@ -24,7 +25,6 @@ export default function FrontPageLogged() {
     const principal = document.getElementById('principal') as HTMLDivElement;
     useEffect(() => {
         getProjects();
-        console.log("load again")
     } , []);
 
     return (
@@ -41,15 +41,16 @@ export default function FrontPageLogged() {
                         className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
                         id='principal'>
                         {
-                            projects.map((project) => {
+                            projects.map((project, index) => {
                                 return (
                                     <>
                                         <Project
+                                            key={index}
                                             id={project.id}
                                             title={project.title}
                                             description={project.description}
                                             image={project.image}
-                                            profession={project.profession}
+                                            subject={project.subject}
                                             enterpriseUID={project.enterpriseUID}
                                         />
                                     </>
@@ -63,6 +64,14 @@ export default function FrontPageLogged() {
 }
 
 function Project(props: projectsInterface) {
+    const [subject, setSubject] = useState('');
+    useEffect(() => {
+        if (props.subject !== undefined){
+            getSubjects(props.subject).then((e) => {
+                if (e !== undefined) setSubject(e.name);
+            });
+        }
+    }, [props.subject]);
     return (
         <Link
             to={{
@@ -77,7 +86,7 @@ function Project(props: projectsInterface) {
                     className='object-cover w-52 h-40 mt-3'
                 />
                 <div className='m-2'>
-                    <p>{props.profession}</p>
+                    <p>{subject}</p>
                     <h3 className='text-2xl bold text-center p-1 h-16 line-clamp-2'>{props.title}</h3>
                     <p className='text-justify line-clamp-3'>
                         {props.description}

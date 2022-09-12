@@ -20,7 +20,7 @@ const fireStore = getFirestore(app);
 const storage = getStorage(app);
 export interface projectsInterface {
     image: string;
-    profession: string;
+    subject: string;
     title: string;
     description: string;
     enterpriseUID: string;
