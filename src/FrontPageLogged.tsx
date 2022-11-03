@@ -86,7 +86,9 @@ function Project(props: projectsInterface) {
                     className='object-cover w-52 h-40 mt-3'
                 />
                 <div className='m-2'>
-                    <p>{subject}</p>
+                    {subject !== ''?
+                        <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">{subject}</span>: null
+                    }
                     <h3 className='text-2xl bold text-center p-1 h-16 line-clamp-2'>{props.title}</h3>
                     <p className='text-justify line-clamp-3'>
                         {props.description}
