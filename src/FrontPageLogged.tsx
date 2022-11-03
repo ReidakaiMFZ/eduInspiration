@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { getSubjects } from './getSubjects';
+import ReactLoading from 'react-loading';
 
 export default function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
@@ -36,7 +37,10 @@ export default function FrontPageLogged() {
                     className='h-36 w-screen'
                 />
             </div>
-                {loading ? "loading..." :
+                {loading ?                 
+                    <div className='flex justify-center items-center h-max mt-32'>
+                        <ReactLoading type='spin' color='purple' />
+                    </div> :
                     <div 
                         className='grid grid-cols-5 gap-4 h-full w-full justify-center p-4'
                         id='principal'>

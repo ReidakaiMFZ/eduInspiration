@@ -19,6 +19,7 @@ import {
     query,
     where,
 } from 'firebase/firestore';
+import ReactLoading from 'react-loading';
 
 function App() {
     const [user, loading, error] = useAuthState(auth);
@@ -64,7 +65,9 @@ function App() {
                     </main>
                 </>
             ) : (
-                <h2>Loading...</h2>
+                <div className='flex justify-center items-center h-screen'>
+                    <ReactLoading type='spin' color='purple' />
+                </div>
             )}
         </>
     );
