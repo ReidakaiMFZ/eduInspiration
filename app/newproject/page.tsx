@@ -1,8 +1,14 @@
-import { app, fireStore, auth, subjectsInterface } from './firebaseObjs';
+'use client';
+import {
+    app,
+    fireStore,
+    auth,
+    subjectsInterface,
+} from '@components/firebaseObjs';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { addDoc, collection, query } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getSubjects } from './getSubjects';
+import { getSubjects } from '@components/getSubjects';
 import { useEffect, useState } from 'react';
 
 const data = {
@@ -61,8 +67,10 @@ export default function CreateNewProject() {
             .catch((e) => alert(e.message));
     };
     const [subjects, setSubjects] = useState([] as subjectsInterface[]);
-    useEffect(() =>{
-        getSubjects("all").then((e) => setSubjects(e as subjectsInterface[]));
+    useEffect(() => {
+        getSubjects('all').then((e: any) =>
+            setSubjects(e as subjectsInterface[])
+        );
     }, []);
     return (
         <div className='flex justify-center mt-10'>
@@ -78,17 +86,21 @@ export default function CreateNewProject() {
                     onChange={(e) => (data.title = e.target.value)}
                 />
                 <br />
-                <label htmlFor="subjects">Disciplina</label>
-                <select name="subjects" id="subjects" className='text-black' onChange={(e) => (data.subject = e.target.value)}>
-                    {
-                        subjects.map((subject) => {
-                            return (
-                                <option value={subject.id}>{subject.name}</option>
-                            )
-                        })
-                    }
+                <label htmlFor='subjects'>Disciplina</label>
+                <select
+                    name='subjects'
+                    id='subjects'
+                    className='text-black'
+                    onChange={(e) => (data.subject = e.target.value)}>
+                    {subjects.map((subject) => {
+                        return (
+                            <option value={subject.id} key={subject.id}>
+                                {subject.name}
+                            </option>
+                        );
+                    })}
                 </select>
-                <br/>
+                <br />
                 <label htmlFor=''>Banner do projeto:</label>
                 <div className=''>
                     <img src='' id='imagePreview' className='object-fit' />

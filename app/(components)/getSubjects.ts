@@ -1,3 +1,5 @@
+'use client'
+
 import { fireStore } from './firebaseObjs';
 import { collection, query, getDocs, getDoc, doc } from 'firebase/firestore';
 

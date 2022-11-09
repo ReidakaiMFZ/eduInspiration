@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Student from './components/Student';
-import Teacher from './components/Teacher';
-import School from './components/School';
-import Enterprise from './components/Enterprise';
+import Student from '@components/Student';
+import Teacher from '@components/Teacher';
+import School from '@components/School';
+import Enterprise from '@components/Enterprise';
 import home from './assets/home.svg';
 
 export default function Login() {
@@ -53,7 +54,7 @@ export default function Login() {
                 ) : null}
                 <div className='flex flex-row-reverse mt-8'>
                     <Link
-                        to={'/login'}
+                        href={'/login'}
                         className={
                             'bg-gpink rounded-full flex items-center justify-center  w-1/3 h-16'
                         }>

@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./index.html', './src/**/*.tsx'],
+    content: [
+        './app/**/*.{js,ts,jsx,tsx}',
+        './pages/**/*.{js,ts,jsx,tsx}',
+        './components/**/*.{js,ts,jsx,tsx}',
+    ],
     theme: {
         extend: {
             height: {
@@ -27,7 +31,5 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/line-clamp'),
-    ],
+    plugins: [require('@tailwindcss/line-clamp')],
 };

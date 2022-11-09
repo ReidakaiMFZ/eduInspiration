@@ -1,6 +1,7 @@
+'use client'
 import { Store } from 'pullstate';
 import { signOut } from 'firebase/auth';
-import { auth } from './firebaseObjs';
+import { auth } from '@components/firebaseObjs';
 
 export type logged = 'nan' | 'student' | 'enterprise';
 

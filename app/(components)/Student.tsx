@@ -5,7 +5,7 @@ import {
     getDocs,
 } from 'firebase/firestore';
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { auth, fireStore, subjectsInterface } from '../firebaseObjs';
+import { auth, fireStore, subjectsInterface } from '@components/firebaseObjs';
 import { addDoc } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
@@ -13,11 +13,12 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Navigate } from 'react-router';
-import { UserData } from '../user';
-import { getCep } from '../CepApi';
+import { useRouter } from 'next/router';
+import { UserData } from '@components/user';
+import { getCep } from '@components/CepApi';
 
 export default function Student() {
+    const router = useRouter();
     const [user] = useAuthState(auth);
     let tempPassword = '';
     let password: string = '';
@@ -102,17 +103,19 @@ export default function Student() {
             method='post'
             onSubmit={registerStudent}
             className={'flex flex-col gap-4'}>
-            <div className='text-left mt-8 text-2xl'>
-                <label htmlFor='studentName'>Nome:</label>
-                <input
-                    type='text'
-                    name='studentName'
-                    id='studentName'
-                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                    onChange={(e) => (student.name = e.target.value)}
-                />
-            </div>
-            {user ? <Navigate to={'/'} /> : ''}
+            <>
+                <div className='text-left mt-8 text-2xl'>
+                    <label htmlFor='studentName'>Nome:</label>
+                    <input
+                        type='text'
+                        name='studentName'
+                        id='studentName'
+                        className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                        onChange={(e) => (student.name = e.target.value)}
+                    />
+                </div>
+                {user ? router.push('/') : ''}
+            </>
 
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='studentEmail'>Email:</label>

@@ -1,12 +1,13 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Navigate } from 'react-router';
-import { auth, fireStore } from '../firebaseObjs';
-import { UserData } from '../user';
-import { getCep } from '../CepApi';
+import { auth, fireStore } from '@components/firebaseObjs';
+import { UserData } from '@components/user';
+import { getCep } from '@components/CepApi';
+import { useRouter } from 'next/router';
 
 export default function Enterprise() {
+    const router = useRouter();
     const [user] = useAuthState(auth);
     let tempPassword = '';
     let password: string = '';
@@ -74,17 +75,19 @@ export default function Enterprise() {
             method='post'
             onSubmit={registerEnterprise}
             className={'flex flex-col gap-4'}>
-            <div className='text-left mt-8 text-2xl'>
-                <label htmlFor='enterpriseName'>Nome:</label>
-                <input
-                    type='text'
-                    name='enterpriseName'
-                    id='enterpriseName'
-                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                    onChange={(_) => (enterprise.name = _.target.value)}
-                />
-            </div>
-            {user ? <Navigate to='/' /> : null}
+            <>
+                <div className='text-left mt-8 text-2xl'>
+                    <label htmlFor='enterpriseName'>Nome:</label>
+                    <input
+                        type='text'
+                        name='enterpriseName'
+                        id='enterpriseName'
+                        className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                        onChange={(_) => (enterprise.name = _.target.value)}
+                    />
+                </div>
+                {user ? router.push('/') : null}
+            </>
             <div className='text-left mt-8 text-2xl'>
                 <label htmlFor='enterpriseEmail'>Email:</label>
                 <input
