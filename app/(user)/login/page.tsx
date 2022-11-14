@@ -6,7 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, fireStore } from '@components/firebaseObjs';
 import { UserData } from '@components/user';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const userInput = {
     login: '',

@@ -13,7 +13,7 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { UserData } from '@components/user';
 import { getCep } from '@components/CepApi';
 

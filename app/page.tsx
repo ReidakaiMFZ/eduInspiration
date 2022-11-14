@@ -17,11 +17,9 @@ import { getSubjects } from '@components/getSubjects';
 import ReactLoading from 'react-loading';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { logged } from '@components/user';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 export default function Main() {
-    const router = useRouter();
     const [user, loading, error] = useAuthState(auth);
-    console.log(router);
     const data = UserData.useUserData();
     useEffect(() => {
         if (data.type == 'nan' && localStorage.getItem('type')) {
@@ -32,6 +30,9 @@ export default function Main() {
 }
 
 function FrontPage() {
+    const router = useRouter();
+    console.log(router, 'router');
+
     return (
         <div className='mt-20 min-h-max min-w-max flex flex-row animate-fade-in'>
             <div className='w-1/2 flex flex-col align-middle text-center'>
