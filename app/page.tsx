@@ -1,22 +1,22 @@
 'use client';
 import Link from 'next/link';
-import handshake from '@assets/handshake.jpg';
+import handshake from '../assets/handshake.jpg';
 import Image from 'next/image';
-import { auth } from '@components/firebaseObjs';
-import { UserData } from '@components/user';
+import { auth } from '../components/firebaseObjs';
+import { UserData } from '../components/user';
 import { query, collection, getDocs } from 'firebase/firestore';
-import cover from '@assets/cover.jpg';
+import cover from '../assets/cover.jpg';
 import {
     fireStore,
     projectsInterface,
     storage,
-} from '@components/firebaseObjs';
+} from '../components/firebaseObjs';
 import { useEffect, useState } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
-import { getSubjects } from '@components/getSubjects';
+import { getSubjects } from '../components/getSubjects';
 import ReactLoading from 'react-loading';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logged } from '@components/user';
+import { logged } from '../components/user';
 import { useRouter } from 'next/navigation';
 export default function Main() {
     const [user, loading, error] = useAuthState(auth);

@@ -3,9 +3,10 @@ import { Auth, signOut, updateCurrentUser } from 'firebase/auth';
 
 import { User } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@components/firebaseObjs';
-import { UserData } from '@components/user';
-import logo from '@assets/logo.png';
+import { auth } from './firebaseObjs';
+import { UserData } from './user';
+import logo from '../assets/logo.png';
+
 import Link from 'next/link';
 
 import Image from 'next/image';

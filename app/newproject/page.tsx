@@ -4,11 +4,11 @@ import {
     fireStore,
     auth,
     subjectsInterface,
-} from '@components/firebaseObjs';
+} from '../../components/firebaseObjs';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { addDoc, collection, query } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getSubjects } from '@components/getSubjects';
+import { getSubjects } from '../../components/getSubjects';
 import { useEffect, useState } from 'react';
 
 const data = {

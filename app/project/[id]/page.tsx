@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { projectsInterface } from '@components/firebaseObjs';
+import { projectsInterface } from '../../../components/firebaseObjs';
 export default function ProjectView() {
     const router = useRouter();
     const parameters = useSearchParams();

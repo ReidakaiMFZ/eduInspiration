@@ -5,7 +5,7 @@ import {
     getDocs,
 } from 'firebase/firestore';
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { auth, fireStore, subjectsInterface } from '@components/firebaseObjs';
+import { auth, fireStore, subjectsInterface } from './firebaseObjs';
 import { addDoc } from 'firebase/firestore';
 import {
     createUserWithEmailAndPassword,
@@ -14,8 +14,8 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
-import { UserData } from '@components/user';
-import { getCep } from '@components/CepApi';
+import { UserData } from './user';
+import { getCep } from './CepApi';
 
 export default function Student() {
     const router = useRouter();

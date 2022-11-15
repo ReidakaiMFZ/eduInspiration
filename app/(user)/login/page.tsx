@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, fireStore } from '@components/firebaseObjs';
-import { UserData } from '@components/user';
+import { auth, fireStore } from '../../../components/firebaseObjs';
+import { UserData } from '../../../components/user';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 

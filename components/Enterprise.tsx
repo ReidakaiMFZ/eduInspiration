@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, fireStore } from '@components/firebaseObjs';
-import { UserData } from '@components/user';
-import { getCep } from '@components/CepApi';
+import { auth, fireStore } from './firebaseObjs';
+import { UserData } from './user';
+import { getCep } from './CepApi';
 import { useRouter } from 'next/navigation';
 
 export default function Enterprise() {

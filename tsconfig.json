@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -24,8 +25,8 @@
       }
     ],
     "paths": {
-      "@components/*": ["app/(components)/*"],
-      "@assets/*": ["app/(assets)/*"],
+      "@/components/*": ["components/*"],
+      "@/assets/*": ["assets/*"],
     }
   },
   "include": [
@@ -36,5 +37,6 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  
 }

@@ -1,10 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Student from '@components/Student';
-import Teacher from '@components/Teacher';
-import School from '@components/School';
-import Enterprise from '@components/Enterprise';
+import Student from '../../../components/Student';
+import Teacher from '../../../components/Teacher';
+import School from '../../../components/School';
+import Enterprise from '../../../components/Enterprise';
 import home from './assets/home.svg';
 
 export default function Login() {
