@@ -93,7 +93,7 @@ function FrontPageLogged() {
             </div>
             {loading ? (
                 <div className='flex justify-center items-center h-max mt-32'>
-                    <ReactLoading type='spin' color='purple' />
+                    <ReactLoading type='spin' color='#901636' />
                 </div>
             ) : (
                 <div
