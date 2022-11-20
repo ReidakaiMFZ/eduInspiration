@@ -11,12 +11,14 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 export default function Header() {
+    const userState = UserData.useUserData();
+
     const [user] = useAuthState(auth);
     return (
         <>
             <header className='w-full p-2 h-18 flex flex-row items-center justify-between border-b-4 border-gblack bg-gpink bg-opacity-80'>
                 <Image src={logo} alt='Logo' className='w-1/12 h-full invert' />
-                <section className='w-1/4 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
+                <section className='w-1/3 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
                     <Link
                         href='/'
                         className='h-8 rounded underline hover:text-xl transition-all duration-500'>
@@ -37,6 +39,13 @@ export default function Header() {
                         className='h-8 rounded underline hover:text-xl transition-all duration-500'>
                         Sobre Nós
                     </Link>
+                    {userState.type === 'enterprise' ? (
+                        <Link
+                            href={'/newproject'}
+                            className='h-8 rounded underline hover:text-xl transition-all duration-500'>
+                            Criar Projeto
+                        </Link>
+                    ) : null}
                 </section>
                 {user ? <LoggedHeader /> : <UnLoggedHeader />}
             </header>
@@ -67,9 +76,6 @@ function LoggedHeader() {
                 }>
                 Sair
             </p>
-            {userState.type === 'enterprise' ? (
-                <Link href={'/newproject'}>Criar Projeto</Link>
-            ) : null}
         </section>
     );
 }
