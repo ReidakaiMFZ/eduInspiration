@@ -45,6 +45,10 @@ export default function Header() {
 }
 
 function LoggedHeader() {
+    const capitalize = (s: string) => {
+        if (typeof s !== 'string') return '';
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    };
     const userState = UserData.useUserData();
     const [user] = useAuthState(auth);
     return (
@@ -52,7 +56,9 @@ function LoggedHeader() {
             <p className={'h-8 rounded'}>
                 {(user?.displayName || userState.username || 'Anonimo') +
                     ' - ' +
-                    userState.type}
+                    (userState.type == 'nan'
+                        ? 'Anonimo'
+                        : capitalize(userState.type))}
             </p>
             <p
                 onClick={() => UserData.signOutWithState()}

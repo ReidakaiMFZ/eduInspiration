@@ -139,7 +139,7 @@ function Project(props: projectsInterface) {
             }}
             // state={{ data: props }}
             className='w-full'>
-            <div className='flex flex-col my-1 items-center bg-gpink bg-opacity-40 text-gblack h-96 rounded-lg'>
+            <div className='flex flex-col my-1 items-center bg-gpink bg-opacity-80 border-2 border-black text-gblack h-96 rounded-lg'>
                 <Image
                     src={props.image}
                     alt=''
