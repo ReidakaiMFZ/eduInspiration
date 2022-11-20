@@ -6,8 +6,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    localStorage.setItem('theme', 'light');
-
     return (
         <html>
             <body>
