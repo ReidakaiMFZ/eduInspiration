@@ -8,9 +8,8 @@ export default function RootLayout({
 }) {
     return (
         <html>
-            <head></head>
-
             <body>
+
                 <main className='bg-gblack w-full h-full'>
                     <Header></Header>
                     {children}

@@ -1,9 +1,10 @@
-'use client'
+'use client';
 
 import * as firebase from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { ReactNode } from 'react';
 const firebaseConfig = {
     // cspell:disable
     apiKey: 'AIzaSyBiyzLGCS-NN_iE0P8GQyvLK-zE6XWHhHc',
