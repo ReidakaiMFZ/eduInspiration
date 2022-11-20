@@ -4,6 +4,7 @@ import {
     serverTimestamp,
     getDocs,
 } from 'firebase/firestore';
+import escolas from '../assets/escolas.json';
 import React, { SetStateAction, useEffect, useState } from 'react';
 import { auth, fireStore, subjectsInterface } from './firebaseObjs';
 import { addDoc } from 'firebase/firestore';
@@ -29,7 +30,6 @@ export default function Student() {
         cpf: '',
         phone: '',
         cep: '',
-        state: '',
         address: '',
         addressNum: '',
         field: 0,
@@ -102,7 +102,7 @@ export default function Student() {
             action=''
             method='post'
             onSubmit={registerStudent}
-            className={'flex flex-col gap-4'}>
+            className='flex flex-col gap-4 [&>div>input]:border [&>div>input]:border-black [&>div>select]:bg-white'>
             <>
                 <div className='text-left mt-8 text-2xl'>
                     <label htmlFor='studentName'>Nome:</label>
@@ -168,18 +168,6 @@ export default function Student() {
                 />
             </div>
             <div className='text-left mt-8 text-2xl'>
-                <label htmlFor='studentState'>estado:</label>
-                <input
-                    type='text'
-                    name='studentState'
-                    id='studentState'
-                    className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
-                    onChange={(e) => {
-                        student.state = e.target.value;
-                    }}
-                />
-            </div>
-            <div className='text-left mt-8 text-2xl'>
                 <div className='flex justify-between pr-8 -mb-8'>
                     <label htmlFor='studentStreet'>Logradouro:</label>
                     <label htmlFor='studentHouseNumber' className=''>
@@ -212,7 +200,7 @@ export default function Student() {
                     name='essays'
                     id='essays'
                     placeholder='Disciplinas'
-                    className='bg-gblack w-2/4'
+                    className='w-2/4'
                     onChange={(e) => {
                         student.field = parseInt(
                             e.target.options[e.target.options.selectedIndex]
@@ -235,8 +223,13 @@ export default function Student() {
                     name='schools'
                     id='schools'
                     placeholder='Escolas'
-                    className='bg-gblack w-2/4'>
+                    className='w-2/4'>
                     <option value='0'>Nenhuma</option>
+                    {escolas.escolas.map((escola) => (
+                        <option value={escola} key={escola}>
+                            {escola}
+                        </option>
+                    ))}
                 </select>
             </div>
             {/* <div className='text-left mt-8 text-2xl flex justify-between'>

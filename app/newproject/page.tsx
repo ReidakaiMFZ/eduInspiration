@@ -24,7 +24,7 @@ export default function CreateNewProject() {
         data.enterpriseUID = user.uid;
     }
     const seeImage = (e: any) => {
-        var image = new FileReader();
+        let image = new FileReader();
         const imgFile = e.target.files[0] as File;
         data.image = imgFile;
 
@@ -74,15 +74,13 @@ export default function CreateNewProject() {
     }, []);
     return (
         <div className='flex justify-center mt-10'>
-            <form
-                className='border-white border-2 flex flex-col p-5 w-1/2'
-                onSubmit={createProject}>
+            <form className='flex flex-col p-5 w-1/2' onSubmit={createProject}>
                 <label htmlFor='name'>Nome do Projeto:</label>
                 <input
                     type='text'
                     name=''
                     id='name'
-                    className='bg-gblack border-white border-b-2'
+                    className='border border-black'
                     onChange={(e) => (data.title = e.target.value)}
                 />
                 <br />
@@ -121,7 +119,7 @@ export default function CreateNewProject() {
                     id=''
                     cols={30}
                     rows={5}
-                    className='text-black p-1'
+                    className='text-black p-1 border-black border'
                     onChange={(e) =>
                         (data.description = e.target.value)
                     }></textarea>

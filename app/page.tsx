@@ -51,7 +51,7 @@ function FrontPage() {
                 </p>
                 <Link
                     href={'/register'}
-                    className='mt-12 text-white text-2xl underline p-2 hover:text-3xl transition-all duration-500'>
+                    className='mt-12 text-2xl underline p-2 hover:text-3xl transition-all duration-500'>
                     Cadastre-se
                 </Link>
             </div>
@@ -88,9 +88,9 @@ function FrontPageLogged() {
 
     return (
         <div className=''>
-            <div className=''>
+            {/* <div className=''>
                 <Image src={cover} alt='Home' className='h-36 w-screen' />
-            </div>
+            </div> */}
             {loading ? (
                 <div className='flex justify-center items-center h-max mt-32'>
                     <ReactLoading type='spin' color='#901636' />
@@ -139,7 +139,7 @@ function Project(props: projectsInterface) {
             }}
             // state={{ data: props }}
             className='w-full'>
-            <div className='flex flex-col my-1 items-center bg-neutral-900'>
+            <div className='flex flex-col my-1 items-center bg-gpink bg-opacity-40 text-gblack h-96 rounded-lg'>
                 <Image
                     src={props.image}
                     alt=''

@@ -14,8 +14,8 @@ export default function Header() {
     const [user] = useAuthState(auth);
     return (
         <>
-            <header className='w-full p-2 h-18 flex flex-row items-center justify-between border-white border-b-2'>
-                <Image src={logo} alt='Logo' className='w-1/12 h-full' />
+            <header className='w-full p-2 h-18 flex flex-row items-center justify-between border-white border-b-4 border-gblack '>
+                <Image src={logo} alt='Logo' className='w-1/12 h-full invert' />
                 <section className='w-1/4 text-lg flex gap-8 flex-row justify-between flex-nowrap'>
                     <Link
                         href='/'

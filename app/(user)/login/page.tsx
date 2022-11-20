@@ -20,7 +20,7 @@ export default function Login() {
     return (
         <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
             <>
-                <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center bg-black py-8 px-24 text-xl'>
+                <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center py-8 px-24 text-xl'>
                     <p className='text-bold underline text-4xl  mt-8 text-center'>
                         Login
                     </p>
@@ -70,7 +70,7 @@ export default function Login() {
                                 type='text'
                                 name='login'
                                 id='login'
-                                className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                                className='block bg-transparent border border-black mt-2 w-full'
                                 onChange={(e) => {
                                     userInput.login = e.target.value;
                                     console.log(
@@ -88,7 +88,7 @@ export default function Login() {
                                 type='password'
                                 name='senha'
                                 id='senha'
-                                className='block bg-transparent border border-white border-x-0 border-t-0 mt-2 w-full'
+                                className='block bg-transparent border border-black mt-2 w-full'
                                 onChange={(e) => {
                                     userInput.password = e.target.value;
                                     setText(e.target.value);

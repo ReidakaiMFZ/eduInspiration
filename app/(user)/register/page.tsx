@@ -14,7 +14,7 @@ export default function Login() {
     };
     return (
         <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
-            <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center bg-black py-8 px-24 text-xl'>
+            <div className='w-1/2g h-full mt-8 flex flex-col align-middle text-center py-8 px-24 text-xl'>
                 <div className='flex flex-row-reverse gap-4'>
                     <div>
                         <label htmlFor='slcTipo'>
@@ -24,7 +24,7 @@ export default function Login() {
                             name='slcTipo'
                             id='slcTipo'
                             placeholder='Tipo de usuário'
-                            className='bg-gblack w-1/3'
+                            className='w-1/3'
                             onChange={handlerEscolha}>
                             <option value='0' disabled>
                                 Tipo de usuário

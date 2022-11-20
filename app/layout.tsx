@@ -6,11 +6,12 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    localStorage.setItem('theme', 'light');
+
     return (
         <html>
             <body>
-
-                <main className='bg-gblack w-full h-full'>
+                <main className='bg-white w-full h-full'>
                     <Header></Header>
                     {children}
                 </main>
