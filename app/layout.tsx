@@ -1,6 +1,7 @@
 'use client';
 import './globals.css';
 import Header from '../components/Header';
+
 export default function RootLayout({
     children,
 }: {
@@ -9,8 +10,7 @@ export default function RootLayout({
     return (
         <html>
             <body>
-
-                <main className='bg-gblack w-full h-full'>
+                <main className='bg-white w-full h-full'>
                     <Header></Header>
                     {children}
                 </main>

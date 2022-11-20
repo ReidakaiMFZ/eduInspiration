@@ -64,7 +64,6 @@ export default function Enterprise() {
         ) as HTMLInputElement;
 
         getCep(e.target.value).then((cep) => {
-            console.log(cep);
             street.value = cep.logradouro;
             state.value = cep.localidade;
         });
@@ -74,7 +73,9 @@ export default function Enterprise() {
             action=''
             method='post'
             onSubmit={registerEnterprise}
-            className={'flex flex-col gap-4'}>
+            className={
+                'flex flex-col gap-4 [&>div>input]:border [&>div>input]:border-black'
+            }>
             <>
                 <div className='text-left mt-8 text-2xl'>
                     <label htmlFor='enterpriseName'>Nome:</label>

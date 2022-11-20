@@ -3,9 +3,7 @@
 [![Generic badge](https://img.shields.io/badge/Alpha-yes-green.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](https://shields.io/)
 
-
-
-## Sobre :beginner:
+## Sobre :beginner
 
 Este é um projeto desenvolvido durante o [Hackathon do CPS](https://inova.cps.sp.gov.br/hackathon/) sob a ODS 8 (Objetivo de desenvolvimento sustentável), subtópico 3 da ONU, com o objetivo de criar uma plataforma que diminui um grande problema que todos os estudantes passam em seu ultimo ano letivo, a falta de ideias para desenvolver seu TCC.
 
@@ -15,17 +13,17 @@ Este é um projeto desenvolvido durante o [Hackathon do CPS](https://inova.cps.s
 
 ### O projeto
 
-Nosso objetivo é facilitar a escolha de temas para o TCC e entregar problemas reais, que poderão ser desenvolvidos para que os alunos tenham uma vivência profissional e um TCC que, de fato, seja útil. 
+Nosso objetivo é facilitar a escolha de temas para o TCC e entregar problemas reais, que poderão ser desenvolvidos para que os alunos tenham uma vivência profissional e um TCC que, de fato, seja útil.
 
 Visto isso, a solução que encontramos é uma plataforma, que juntamente com a escola o aluno possa escolher dentre diversas problemáticas ou projetos que com a parceria de empresas escolheriam uma resolução para melhor atendê-los.
 
+## Acesso :calling
 
-## Acesso :calling:
-
-[Edu inspiration](https://prjproblematicas.firebaseapp.com/)
+[Edu inspiration](eduinspiration.vercel.app)
 
 ## Tecnologias 📚
 
+- [next.js](https://nextjs.org/) <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width='20px' height='20px' />
 - [typescript](https://www.typescriptlang.org/) <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width='20px' height='20px'/>
 - [React](https://reactjs.org/) <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width='20px' height='20px'/>
 - [vitejs](https://vitejs.org/) <img src="https://avatars.githubusercontent.com/u/65625612?s=280&v=4" width='20px' height='20px'/>

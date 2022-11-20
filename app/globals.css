@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 html {
-    @apply bg-gblack;
-    @apply text-white;
+    @apply bg-white;
+    @apply font-medium;
 }
