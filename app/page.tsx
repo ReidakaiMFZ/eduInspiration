@@ -4,7 +4,7 @@ import handshake from '../assets/handshake.jpg';
 import Image from 'next/image';
 import { auth } from '../components/firebaseObjs';
 import { UserData } from '../components/user';
-import { query, collection, getDocs } from 'firebase/firestore';
+import { query, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import cover from '../assets/cover.jpg';
 import {
     fireStore,
@@ -16,23 +16,24 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { getSubjects } from '../components/getSubjects';
 import ReactLoading from 'react-loading';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logged } from '../components/user';
 import { useRouter } from 'next/navigation';
+import { logged } from '../components/user';
+import browserStore from '@/components/browserStorage';
 export default function Main() {
     const [user, loading, error] = useAuthState(auth);
-    const data = UserData.useUserData();
-    useEffect(() => {
-        if (data.type == 'nan' && localStorage.getItem('type')) {
-            UserData.updateTypeUser(localStorage.getItem('type') as logged);
-        }
-    }, []);
+
     return <>{user ? <FrontPageLogged /> : <FrontPage />}</>;
 }
 
 function FrontPage() {
     const router = useRouter();
-    console.log(router, 'router');
-
+    const data = UserData.useUserData();
+    useEffect(() => {
+        if (data.type == 'nan' && browserStore('get', 'type')) {
+            UserData.updateTypeUser(browserStore('get', 'type') as logged);
+            UserData.updateUid(browserStore('get', 'uid') as string);
+        }
+    }, []);
     return (
         <div className='mt-20 min-h-max min-w-max flex flex-row animate-fade-in'>
             <div className='w-1/2 flex flex-col align-middle text-center'>
@@ -69,21 +70,34 @@ function FrontPageLogged() {
     const projRef = query(collection(fireStore, 'projects'));
     const [projects, setProjects] = useState([] as projectsInterface[]);
     const [loading, setLoading] = useState(true);
-    const getProjects = async () => {
-        const projects = await getDocs(projRef);
-        const docs = projects.docs.map(
-            (doc) => ({ ...doc.data(), id: doc.id } as projectsInterface)
-        );
-        const projectsWithImage = docs.map(async (doc) => {
-            doc.image = await getDownloadURL(ref(storage, doc.image));
-            return doc;
-        });
-        Promise.all(projectsWithImage).then((docs) => setProjects(docs));
-        setLoading(false);
+    const getProjects = async (projeto?: string) => {
+        if (projeto) {
+            const project = await getDoc(doc(fireStore, 'projects', projeto));
+            const document = {
+                ...(project.data() as object),
+                id: project.id,
+            } as projectsInterface;
+            document.image = await getDownloadURL(ref(storage, document.image));
+            setProjects([document]);
+            setLoading(false);
+        } else {
+            const projects = await getDocs(projRef);
+            const docs = projects.docs.map(
+                (doc) => ({ ...doc.data(), id: doc.id } as projectsInterface)
+            );
+            const projectsWithImage = docs.map(async (doc) => {
+                doc.image = await getDownloadURL(ref(storage, doc.image));
+                return doc;
+            });
+            Promise.all(projectsWithImage).then((docs) => setProjects(docs));
+            setLoading(false);
+        }
     };
     const principal = document.getElementById('principal') as HTMLDivElement;
     useEffect(() => {
-        getProjects();
+        if (browserStore('get', 'projeto')) {
+            getProjects(browserStore('get', 'projeto') as string);
+        } else getProjects();
     }, []);
 
     return (

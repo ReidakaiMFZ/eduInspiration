@@ -34,6 +34,7 @@ export default function Student() {
         addressNum: '',
         field: 0,
         uid: '',
+        project: '',
     };
     const registerStudent = (e: React.FormEvent) => {
         e.preventDefault();
@@ -57,6 +58,7 @@ export default function Student() {
                     student.uid = result.user.uid;
                     UserData.updateUsername(student.name);
                     UserData.updateTypeUser('student');
+                    UserData.updateUid(student.uid);
                     addDoc(collection(fireStore, 'students'), student);
                     addDoc(collection(fireStore, 'users'), {
                         uid: result.user.uid,
@@ -92,9 +94,7 @@ export default function Student() {
         ) as HTMLInputElement;
 
         getCep(e.target.value).then((cep) => {
-            console.log(cep);
             street.value = cep.logradouro;
-            state.value = cep.localidade;
         });
     };
     return (

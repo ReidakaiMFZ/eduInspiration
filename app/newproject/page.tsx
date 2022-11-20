@@ -44,7 +44,6 @@ export default function CreateNewProject() {
 
     const createProject = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data);
         if (!data.image) {
             alert('Selecione uma imagem');
             return;

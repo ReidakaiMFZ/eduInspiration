@@ -64,7 +64,6 @@ export default function Enterprise() {
         ) as HTMLInputElement;
 
         getCep(e.target.value).then((cep) => {
-            console.log(cep);
             street.value = cep.logradouro;
             state.value = cep.localidade;
         });

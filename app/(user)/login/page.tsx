@@ -16,7 +16,6 @@ export default function Login() {
     let [text, setText] = useState('');
     const [user] = useAuthState(auth);
     const router = useRouter();
-    console.log(router);
     return (
         <div className='min-h-full min-w-full flex justify-center flex-row animate-fade-in'>
             <>
@@ -29,7 +28,6 @@ export default function Login() {
                         method='post'
                         onSubmit={(e) => {
                             e.preventDefault();
-                            console.log(userInput.login);
                             if (
                                 userInput.login == '' &&
                                 userInput.password == ''
@@ -73,11 +71,6 @@ export default function Login() {
                                 className='block bg-transparent border border-black mt-2 w-full'
                                 onChange={(e) => {
                                     userInput.login = e.target.value;
-                                    console.log(
-                                        e.target.value,
-                                        userInput.login,
-                                        router
-                                    );
                                     setText(e.target.value);
                                 }}
                             />
