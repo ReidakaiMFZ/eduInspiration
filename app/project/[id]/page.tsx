@@ -1,7 +1,21 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { auth, projectsInterface } from '../../../components/firebaseObjs';
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    updateDoc,
+    where,
+} from 'firebase/firestore';
+import {
+    auth,
+    fireStore,
+    projectsInterface,
+} from '../../../components/firebaseObjs';
 import { UserData } from '@/components/user';
 import browserStore from '@/components/browserStorage';
 export default function ProjectView() {
@@ -9,6 +23,22 @@ export default function ProjectView() {
     const parameters = useSearchParams();
     const data = parameters.get('data');
     const project: projectsInterface = JSON.parse(data as string);
+    const user = UserData.useUserData();
+    const deleteProject = async () => {
+        await deleteDoc(doc(fireStore, 'projects', project.id));
+        // update all students with that project
+        const q = query(
+            collection(fireStore, 'students'),
+            where('project', '==', project.id)
+        );
+        const docs = await getDocs(q);
+        docs.forEach(async (document) => {
+            updateDoc(doc(fireStore, 'students', document.id), {
+                project: '',
+            });
+        });
+        router.push('/');
+    };
     const casar = async () => {
         if (
             confirm(
@@ -50,7 +80,6 @@ export default function ProjectView() {
                 <div className='flex flex-row-reverse mb-10 mr-10'>
                     {UserData.useUserData().type == 'student' && (
                         <button
-                            type='submit'
                             className='bg-gpink w-64 h-16 mt-8 rounded-lg'
                             onClick={
                                 browserStore('get', 'projeto')
@@ -62,6 +91,15 @@ export default function ProjectView() {
                                 : 'Casar com o projeto'}
                         </button>
                     )}
+
+                    {user.type == 'enterprise' &&
+                        auth.currentUser?.uid === project.enterpriseUID && (
+                            <button
+                                className='bg-gpink w-64 h-16 mt-8 rounded-lg'
+                                onClick={deleteProject}>
+                                Excluir Projeto
+                            </button>
+                        )}
                 </div>
             </div>
         </div>
