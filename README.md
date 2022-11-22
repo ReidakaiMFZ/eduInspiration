@@ -3,7 +3,7 @@
 [![Generic badge](https://img.shields.io/badge/Alpha-yes-green.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](https://shields.io/)
 
-## Sobre :beginner
+## Sobre :beginner:
 
 Este é um projeto desenvolvido durante o [Hackathon do CPS](https://inova.cps.sp.gov.br/hackathon/) sob a ODS 8 (Objetivo de desenvolvimento sustentável), subtópico 3 da ONU, com o objetivo de criar uma plataforma que diminui um grande problema que todos os estudantes passam em seu ultimo ano letivo, a falta de ideias para desenvolver seu TCC.
 
@@ -17,9 +17,9 @@ Nosso objetivo é facilitar a escolha de temas para o TCC e entregar problemas r
 
 Visto isso, a solução que encontramos é uma plataforma, que juntamente com a escola o aluno possa escolher dentre diversas problemáticas ou projetos que com a parceria de empresas escolheriam uma resolução para melhor atendê-los.
 
-## Acesso :calling
+## Acesso :calling:
 
-[Edu inspiration](eduinspiration.vercel.app)
+[Edu inspiration](http://eduinspiration.vercel.app)
 
 ## Tecnologias 📚
 

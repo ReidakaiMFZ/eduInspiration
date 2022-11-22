@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 const data = {
     title: '',
     description: '',
+    metadata: '',
     subject: '',
     image: null as File | null,
     enterpriseUID: '',
@@ -38,7 +39,7 @@ export default function CreateNewProject() {
                 'imagePreview'
             ) as HTMLDivElement;
             divPreviewer.style.cssText =
-                'margin-top: 0.5rem; height: 7rem; width: 12rem;';
+                'margin-top: 0.5rem; height: 7rem; width: 12rem; border: 1px solid #000;';
         };
     };
 
@@ -57,6 +58,7 @@ export default function CreateNewProject() {
                     title: data.title,
                     subject: data.subject,
                     description: data.description,
+                    metadata: data.metadata,
                     image: e.ref.fullPath,
                     enterpriseUID: data.enterpriseUID,
                 }).then(() => {
@@ -87,7 +89,7 @@ export default function CreateNewProject() {
                 <select
                     name='subjects'
                     id='subjects'
-                    className='text-black'
+                    className='text-black border border-black rounded-md'
                     onChange={(e) => (data.subject = e.target.value)}>
                     {subjects.map((subject) => {
                         return (
@@ -118,9 +120,23 @@ export default function CreateNewProject() {
                     id=''
                     cols={30}
                     rows={5}
-                    className='text-black p-1 border-black border'
+                    className='text-black p-1 border-black border rounded-md'
                     onChange={(e) =>
                         (data.description = e.target.value)
+                    }></textarea>
+                <br />
+                <label htmlFor=''>
+                    Dados confidenciais do projeto (como informações de
+                    contato):
+                </label>
+                <textarea
+                    name=''
+                    id=''
+                    cols={30}
+                    rows={5}
+                    className='text-black p-1 border-black border rounded-md'
+                    onChange={(e) =>
+                        (data.metadata = e.target.value)
                     }></textarea>
                 <button
                     type='submit'
