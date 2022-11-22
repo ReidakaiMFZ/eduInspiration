@@ -18,26 +18,41 @@ import {
 } from '../../../components/firebaseObjs';
 import { UserData } from '@/components/user';
 import browserStore from '@/components/browserStorage';
+import { useEffect, useState } from 'react';
 export default function ProjectView() {
     const router = useRouter();
     const parameters = useSearchParams();
     const data = parameters.get('data');
     const project: projectsInterface = JSON.parse(data as string);
     const user = UserData.useUserData();
+    const [metadata, setMetadata] = useState('');
     const deleteProject = async () => {
         await deleteDoc(doc(fireStore, 'projects', project.id));
         // update all students with that project
         const q = query(
             collection(fireStore, 'students'),
-            where('project', '==', project.id)
+            where('projeto', '==', project.id)
         );
         const docs = await getDocs(q);
         docs.forEach(async (document) => {
             updateDoc(doc(fireStore, 'students', document.id), {
-                project: '',
+                projeto: null,
             });
         });
         router.push('/');
+    };
+    const getMetaData = async () => {
+        console.log('entrou');
+        const docRef = doc(fireStore, 'projects', project.id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+
+            const data = docSnap.data();
+            setMetadata(data?.metadata);
+            return true;
+        }
+        return false;
     };
     const casar = async () => {
         if (
@@ -59,6 +74,13 @@ export default function ProjectView() {
             router.push('/');
         }
     };
+    useEffect(() => {
+        if (
+            user.projeto === project.id ||
+            project.enterpriseUID === auth.currentUser?.uid
+        )
+            getMetaData();
+    }, []);
     return (
         <div className='flex flex-nowrap flex-row items-stretch'>
             <nav className='grid h-96 w-1/2 justify-center'>
@@ -77,6 +99,10 @@ export default function ProjectView() {
                 <h1 className='bold text-5xl'>{project.title}</h1>
                 <h6 className='mt-2 mb-5'>{project.subject}</h6>
                 <p className='break-all h-full'>{project.description}</p>
+                {(user.projeto === project.id ||
+                    project.enterpriseUID === auth.currentUser?.uid) && (
+                    <p className='break-all h-full'>{metadata}</p>
+                )}
                 <div className='flex flex-row-reverse mb-10 mr-10'>
                     {UserData.useUserData().type == 'student' && (
                         <button

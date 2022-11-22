@@ -123,10 +123,12 @@ export default function CreateNewProject() {
                     className='text-black p-1 border-black border rounded-md'
                     onChange={(e) =>
                         (data.description = e.target.value)
-                    }>
-                </textarea>
+                    }></textarea>
                 <br />
-                <label htmlFor=''>Dados confidenciais do projeto:</label>
+                <label htmlFor=''>
+                    Dados confidenciais do projeto (como informações de
+                    contato):
+                </label>
                 <textarea
                     name=''
                     id=''
@@ -135,8 +137,7 @@ export default function CreateNewProject() {
                     className='text-black p-1 border-black border rounded-md'
                     onChange={(e) =>
                         (data.metadata = e.target.value)
-                    }>
-                </textarea>
+                    }></textarea>
                 <button
                     type='submit'
                     className='bg-gpink rounded-full text-2xl h-10 w-1/4 mt-4'>
