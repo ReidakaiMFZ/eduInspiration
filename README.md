@@ -35,7 +35,7 @@ Visto isso, a solução que encontramos é uma plataforma, que juntamente com a 
 - [Cauã Alencar Rojas Romero](https://github.com/CauaRojas)
 - [Guilherme Pereira](https://github.com/GuilhermePereirz)
 - [Gustavo de Oliveira](https://github.com/oliveira533)
-- [Richard Barbosa Sanches](https://github.com/ReidakaiMFZ)
+- [Richard Barbosa Sanches](https://github.com/Richardsan1)
 - Samuel da Silva
 
 ## Licença 📄
